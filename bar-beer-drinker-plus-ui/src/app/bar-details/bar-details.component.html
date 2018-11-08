@@ -1,3 +1,10 @@
-<p>
-  bar-details works!
-</p>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">{{ barName }}</h1>
+        <p class="bar-details" *ngIf="barDetails">
+            {{ barDetails?.City }} <span *ngIf="barDetails.City && barDetails.Phone">|</span> {{ barDetails?.Phone }}
+            <br>
+            {{ barDetails?.License }}
+        </p>
+    </div>
+</div> 

@@ -8,6 +8,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    redirectTo: 'bars'
+  },
+  {
+    path: 'bars',
+    pathMatch: 'full',
     component: WelcomeComponent
   },
   {
