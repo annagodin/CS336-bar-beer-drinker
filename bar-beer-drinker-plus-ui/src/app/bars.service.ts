@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 export interface Bar {
-  name: string;
-  license: string;
-  city: string;
-  phone: string;
+  Bar: string;
+  City: string;
+  License: string;
+  Phone: string;
 }
 
 
@@ -15,11 +15,11 @@ export interface Bar {
 export class BarsService {
 
   constructor(
-    public http: HttpClient
+    public httpClient: HttpClient
     ) { }
 
     getBars(){
-      return this.http.get<Bar[]>('/api/bar');
+      return this.httpClient.get<Bar[]>('/api/bar');
     }
 
 }
