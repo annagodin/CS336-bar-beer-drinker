@@ -3,16 +3,16 @@ from sqlalchemy import sql
 
 from BarBeerDrinkerPlus import config
 
-engine = create_engine(config.database_uri)
+engine = create_engine(config.database_uri) 
 
 def get_bars():
     with engine.connect() as con:
         rs = con.execute("SELECT Bar, City, Phone, License FROM BarBeerDrinkerPlus.Bars;")
         return [dict(row) for row in rs]
 
-
+ 
 def find_bar(name):
-    with engine.connect() as con:
+    with engine.connect() as con: 
         query = sql.text(
             "SELECT Bar, City, License, Phone FROM BarBeerDrinkerPlus.Bars WHERE Bar = :name;"
         )
