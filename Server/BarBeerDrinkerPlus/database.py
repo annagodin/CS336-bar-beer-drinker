@@ -50,7 +50,7 @@ def get_bar_menu(bar_name):
         rs = con.execute(query, bar=bar_name)
         results = [dict(row) for row in rs]
         for i, _ in enumerate(results):
-            results[i]['price'] = float(results[i]['price'])
+            results[i]['Price'] = float(results[i]['Price'])
         return results
 
 
