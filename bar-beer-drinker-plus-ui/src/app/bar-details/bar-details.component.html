@@ -10,33 +10,22 @@
 </div>
 
 <div class="container">
-    <h2 class="text-center font-weight-light">Bar Menu</h2>
+    <h2 class="text-center font-weight-light">Menu</h2>
     <br>
     <p-table [value]="menu">
         <ng-template pTemplate="header">
             <tr>
-<<<<<<< HEAD
                 <th>Beer</th>
                 <th>Manufacturer</th>
-=======
-                <th>Name</th>
-                <th>Type</th>
-                <th>Menufacturer</th>
->>>>>>> 64e49d7fe12fbb9332e5bcdc386802cb13bbec39
                 <th>Price</th>
                 <th>Likes</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
             <tr>
-                <td><a routerLink="/beers/{{ item.Name }}">{{ item.Name }}</a></td>
-                <td>{{ item.Type }}</td>
+                <td><a routerLink="/beers/{{ item.beer }}">{{ item.Name }}</a></td>
                 <td>{{ item.Manufacturer }}</td>
-<<<<<<< HEAD
                 <td>{{ item.Price}}</td>
-=======
-                <td>${{ item.Price}}</td>
->>>>>>> 64e49d7fe12fbb9332e5bcdc386802cb13bbec39
                 <td>{{ item.likes }}</td>
             </tr>
         </ng-template>
