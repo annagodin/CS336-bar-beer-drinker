@@ -27,7 +27,7 @@
                 <td><a routerLink="/beers/{{ item.Name }}">{{ item.Name }}</a></td>
                 <td>{{ item.Type }}</td>
                 <td>{{ item.Manufacturer }}</td>
-                <td>${{ item.Price}}</td>
+                <td>{{ item.Price | currency}}</td>
                 <td>{{ item.likes }}</td>
             </tr>
         </ng-template>

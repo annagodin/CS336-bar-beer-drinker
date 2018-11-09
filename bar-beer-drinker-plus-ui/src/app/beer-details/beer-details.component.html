@@ -11,8 +11,7 @@
 <div class="container">
   <br>
   <div>
-    <span class="font-weight-light result-count">Sold at {{ beerLocations?.length }}</span>
-  </div>
+    <span class="font-weight-light result-count">Sold at {{ beerLocations?.length }} bars</span>
 </div>
 <br>
 <p-table [value]="beerLocations" sortMode="multiple" sortField="price">
@@ -27,9 +26,9 @@
   </ng-template>
   <ng-template pTemplate="body" let-bar>
     <tr>
-      <td><a routerLink="/bars/{{ bar.bar }}">{{ bar.bar }}</a></td>
-      <td>{{ bar.price }}</td>
-      <td>{{ bar.customers }}</td>
+      <td><a routerLink="/bars/{{ bar.bar }}">{{ bar.Bar }}</a></td>
+      <td>{{ bar.Price | currency }}</td>
+      <td>{{ bar.Customers }}</td>
     </tr>
   </ng-template>
 </p-table>
