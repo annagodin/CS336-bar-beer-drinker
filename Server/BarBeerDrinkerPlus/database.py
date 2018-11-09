@@ -39,13 +39,13 @@ def filter_beers(max_price):
 def get_bar_menu(bar_name):
     with engine.connect() as con:
         query = sql.text(
-            'SELECT a.bar, a.beer, a.price, b.manf, coalesce(c.like_count, 0) as likes \
-                FROM sells as a \
-                JOIN beers AS b \
-                ON a.beer = b.name \
-                LEFT OUTER JOIN (SELECT beer, count(*) as like_count FROM likes GROUP BY beer) as c \
-                ON a.beer = c.beer \
-                WHERE a.bar = :bar; \
+            'SELECT a.Bar, a.Name, a.Price, b.Manufacturer, coalesce(c.like_count, 0) as likes \
+                FROM Sells as a \
+                JOIN Item AS b \
+                ON a.Name = b.Name \
+                LEFT OUTER JOIN (SELECT beer, count(*) as like_count FROM Likes GROUP BY beer) as c \
+                ON a.Name = c.Beer \
+                WHERE a.Bar = :bar; \
             ')
         rs = con.execute(query, bar=bar_name)
         results = [dict(row) for row in rs]

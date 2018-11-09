@@ -2,9 +2,32 @@
     <div class="container">
         <h1 class="display-4">{{ barName }}</h1>
         <p class="bar-details" *ngIf="barDetails">
-            {{ barDetails?.City }} <span *ngIf="barDetails.City && barDetails.Phone">|</span> {{ barDetails?.Phone }}
+            {{ barDetails?.addr }} <span *ngIf="barDetails.addr && barDetails.city">|</span> {{ barDetails?.city }}
             <br>
-            {{ barDetails?.License }}
+            {{ barDetails?.phone }}
         </p>
     </div>
-</div> 
+</div>
+
+<div class="container">
+    <h2 class="text-center font-weight-light">Menu</h2>
+    <br>
+    <p-table [value]="menu">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Beer</th>
+                <th>Menufacturer</th>
+                <th>Price</th>
+                <th>Likes</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td><a routerLink="/beers/{{ item.beer }}">{{ item.Name }}</a></td>
+                <td>{{ item.Manufacturer }}</td>
+                <td>{{ item.Price | currency }}</td>
+                <td>{{ item.Likes }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
