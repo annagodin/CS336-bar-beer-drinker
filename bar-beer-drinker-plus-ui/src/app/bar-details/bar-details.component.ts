@@ -12,7 +12,6 @@ export class BarDetailsComponent implements OnInit {
 
   barName: string;
   barDetails: Bar;
-
   menu: BarMenuItem[];
 
   constructor(
@@ -33,15 +32,13 @@ export class BarDetailsComponent implements OnInit {
             console.error(error.status + ' - ' + error.body);
             alert('An error occurred on the server. Please check the browser console.');
           }
-        }
-      );
+        });
 
       barService.getMenu(this.barName).subscribe(
         data => {
-          this.menu = data; 
+          this.menu = data;
         }
       );
-
     });
   }
 

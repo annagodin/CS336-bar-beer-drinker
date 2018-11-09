@@ -2,9 +2,9 @@
     <div class="container">
         <h1 class="display-4">{{ barName }}</h1>
         <p class="bar-details" *ngIf="barDetails">
-            {{ barDetails?.addr }} <span *ngIf="barDetails.addr && barDetails.city">|</span> {{ barDetails?.city }}
+            {{ barDetails?.City }} <span *ngIf="barDetails.City && barDetails.Phone">|</span> {{ barDetails?.Phone }}
             <br>
-            {{ barDetails?.phone }}
+            {{ barDetails?.License }}
         </p>
     </div>
 </div>
@@ -25,7 +25,7 @@
             <tr>
                 <td><a routerLink="/beers/{{ item.beer }}">{{ item.Name }}</a></td>
                 <td>{{ item.Manufacturer }}</td>
-                <td>{{ item.Price | currency }}</td>
+                <td>{{ item.Price}}</td>
                 <td>{{ item.Likes }}</td>
             </tr>
         </ng-template>
