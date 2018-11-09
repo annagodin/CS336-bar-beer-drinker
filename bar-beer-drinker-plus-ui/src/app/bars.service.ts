@@ -11,7 +11,8 @@ export interface Bar {
 }
 
 export interface BarMenuItem {
-  beer: string;
+  name: string;
+  type: string;
   manf: string;
   price: number;
   likes: number;
