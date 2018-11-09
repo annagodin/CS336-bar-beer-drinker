@@ -12,7 +12,7 @@ app = Flask(__name__)
 def get_bars():
     return jsonify(database.get_bars())
 
-
+ 
 @app.route("/api/bar/<name>", methods=["GET"])
 def find_bar(name):
     try:
@@ -82,6 +82,7 @@ def get_manufacturers_making(beer):
         return make_response(str(e), 500)
 
 
+ #WTF IS UP WITH THIS ONE??????
 @app.route("/api/likes", methods=["GET"])
 def get_likes():
     try:
@@ -93,20 +94,20 @@ def get_likes():
         return make_response(str(e), 500)
 
 
-@app.route("/api/drinker", methods=["GET"])
-def get_drinkers():
+@app.route("/api/customer", methods=["GET"])
+def get_customers():
     try:
-        return jsonify(database.get_drinkers())
+        return jsonify(database.get_customers())
     except Exception as e:
         return make_response(str(e), 500)
 
 
-@app.route("/api/drinker/<name>", methods=["GET"])
-def get_drinker(name):
+@app.route("/api/customer/<name>", methods=["GET"])
+def get_customer(name):
     try:
         if name is None:
-            raise ValueError("Drinker is not specified.")
-        return jsonify(database.get_drinker_info(name))
+            raise ValueError("Cutsomer is not specified.")
+        return jsonify(database.get_customer_info(name))
     except ValueError as e:
         return make_response(str(e), 400)
     except Exception as e:

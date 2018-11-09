@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BarDetailsComponent } from './bar-details/bar-details.component';
 import { DrinkerComponent } from './drinker/drinker.component';
+import { BeerDetailsComponent } from './beer-details/beer-details.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,11 @@ const routes: Routes = [
     path: 'drinker',
     pathMatch: 'full',
     component: DrinkerComponent
+  },
+  {
+    path: 'beers/:beer',
+    pathMatch: 'full',
+    component: BeerDetailsComponent
   }
 ];
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 
 @Component({
@@ -9,10 +9,41 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DrinkerComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  // drinks: any[];
+  // manufacturerOptions: SelectItem[];
+
+  // originalBeersList: any[];
+
+  // constructor(private beerService: BeersService) {
+  //   this.beerService.getBeers().Ssubscribe(
+  //     data => {
+  //       this.drinks = data;
+  //       this.originalBeersList = data;
+  //     }
+  //   );
+  //   this.beerService.getBeerManufacturers().subscribe(
+  //     data => {
+  //       this.manufacturerOptions = data.map(manf => {
+  //         return {
+  //           label: manf,
+  //           value: manf,
+  //         };
+  //       });
+  //     }
+  //   );
+  // }
 
   ngOnInit() {
   }
-  
+
+  filterBeers(manufacturer: string) {
+    this.drinks = this.originalBeersList;
+    if (manufacturer) {
+      this.drinks = this.originalBeersList.filter(beer => beer.manf === manufacturer);
+    }
+  }
 
 }
+  
+
+
