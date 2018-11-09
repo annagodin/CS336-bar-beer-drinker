@@ -8,18 +8,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BarDetailsComponent } from './bar-details/bar-details.component';
+import { DrinkerComponent } from './drinker/drinker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    BarDetailsComponent
+    BarDetailsComponent,
+    DrinkerComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     TableModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
