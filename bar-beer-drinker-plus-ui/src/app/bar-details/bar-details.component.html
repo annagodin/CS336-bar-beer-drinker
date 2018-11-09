@@ -16,7 +16,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>Beer</th>
-                <th>Menufacturer</th>
+                <th>Manufacturer</th>
                 <th>Price</th>
                 <th>Likes</th>
             </tr>
@@ -26,7 +26,7 @@
                 <td><a routerLink="/beers/{{ item.beer }}">{{ item.Name }}</a></td>
                 <td>{{ item.Manufacturer }}</td>
                 <td>{{ item.Price}}</td>
-                <td>{{ item.Likes }}</td>
+                <td>{{ item.likes }}</td>
             </tr>
         </ng-template>
     </p-table>
