@@ -39,7 +39,7 @@ def filter_beers(max_price):
 def get_bar_menu(bar_name):
     with engine.connect() as con:
         query = sql.text(
-            'SELECT a.Bar, a.Name, a.Price, b.Manufacturer, coalesce(c.like_count, 0) as likes \
+            'SELECT a.Bar, a.Type, a.Name, a.Price, b.Manufacturer, coalesce(c.like_count, 0) as likes \
                 FROM Sells as a \
                 JOIN Item AS b \
                 ON a.Name = b.Name \

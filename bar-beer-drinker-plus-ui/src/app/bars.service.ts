@@ -12,6 +12,7 @@ export interface Bar {
 
 export interface BarMenuItem {
   name: string;
+  type: string;
   manf: string;
   price: number;
   likes: number;
