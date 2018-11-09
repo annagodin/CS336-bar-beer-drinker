@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
-
 @Component({
   selector: 'app-drinker',
   templateUrl: './drinker.component.html',
