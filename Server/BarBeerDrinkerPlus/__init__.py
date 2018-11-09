@@ -132,3 +132,12 @@ def get_bar_frequent_counts():
         return jsonify(database.get_bar_frequent_counts())
     except Exception as e:
         return make_response(str(e), 500)
+
+@app.route('/api/customer-transactions/<name>', methods=['GET'])
+def get_customer_transactions(name):
+    try:
+        if name is None:
+            raise ValueError("Cutsomer is not specified.")
+        return jsonify(database.get_customer_transactions(name))
+    except Exception as e:
+        return make_response(str(e), 500)
