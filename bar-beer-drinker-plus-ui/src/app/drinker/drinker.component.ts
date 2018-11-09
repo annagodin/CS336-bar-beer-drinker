@@ -15,7 +15,7 @@ export class DrinkerComponent implements OnInit {
   // originalBeersList: any[];
 
   // constructor(private beerService: BeersService) {
-  //   this.beerService.getBeers().Ssubscribe(
+  //   this.beerService.getBeers().subscribe(
   //     data => {
   //       this.drinks = data;
   //       this.originalBeersList = data;
@@ -33,15 +33,15 @@ export class DrinkerComponent implements OnInit {
   //   );
   // }
 
-  ngOnInit() {
-  }
+   ngOnInit() {
+   }
 
-  filterBeers(manufacturer: string) {
-    this.drinks = this.originalBeersList;
-    if (manufacturer) {
-      this.drinks = this.originalBeersList.filter(beer => beer.manf === manufacturer);
-    }
-  }
+  // filterBeers(manufacturer: string) {
+  //   this.drinks = this.originalBeersList;
+  //   if (manufacturer) {
+  //     this.drinks = this.originalBeersList.filter(beer => beer.manf === manufacturer);
+  //   }
+  // }
 
 }
   
