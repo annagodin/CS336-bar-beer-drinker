@@ -40,7 +40,7 @@ def get_bar_menu(bar_name):
     with engine.connect() as con:
         query = sql.text(
             'SELECT a.Bar, a.Type, a.Name, a.Price, b.Manufacturer, coalesce(c.like_count, 0) as likes \
-                FROM Sells as a \
+                FROM MasterSells as a \
                 JOIN Item AS b \
                 ON a.Name = b.Name \
                 LEFT OUTER JOIN (SELECT beer, count(*) as like_count FROM Likes GROUP BY beer) as c \
