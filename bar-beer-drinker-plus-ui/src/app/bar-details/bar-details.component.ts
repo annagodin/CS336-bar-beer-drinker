@@ -36,7 +36,8 @@ export class BarDetailsComponent implements OnInit {
 
       barService.getMenu(this.barName).subscribe(
         data => {
-          this.menu = data;
+          console.log("this is bar name", this.barName)
+           this.menu = data;
         }
       );
     });
