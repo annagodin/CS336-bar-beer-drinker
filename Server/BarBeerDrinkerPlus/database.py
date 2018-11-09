@@ -122,9 +122,9 @@ def get_likes(customer_name):
     """Gets a list of beers liked by the drinker provided."""
 
     with engine.connect() as con:
-        query = sql.text('SELECT Name FROM Likes WHERE Name = :name;')
+        query = sql.text('SELECT Beer FROM Likes WHERE Customer = :name;')
         rs = con.execute(query, name=customer_name)
-        return [row['beer'] for row in rs]
+        return [row['Beer'] for row in rs]
 
 
 def get_customer_info(customer_name):

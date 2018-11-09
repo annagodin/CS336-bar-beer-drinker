@@ -81,7 +81,6 @@ def get_manufacturers_making(beer):
     except Exception as e:
         return make_response(str(e), 500)
 
-
  #WTF IS UP WITH THIS ONE??????
 @app.route("/api/likes", methods=["GET"])
 def get_likes():
@@ -141,3 +140,4 @@ def get_customer_transactions(name):
         return jsonify(database.get_customer_transactions(name))
     except Exception as e:
         return make_response(str(e), 500)
+
