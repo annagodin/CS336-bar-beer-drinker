@@ -135,3 +135,15 @@ def get_customer_info(customer_name):
         if result is None:
             return None
         return dict(result)
+
+
+def get_customer_transactions(name):
+    with engine.connect() as con:
+        query=sql.text('SELECT * FROM BarBeerDrinkerPlus.Transactions \
+        where Customer = :name \
+        order by \
+        STR_TO_DATE(Date,\'%m/%d/%y\'), \
+        STR_TO_DATE(Time,\'%h:%i %p\'); \
+            ')
+        rs = con.execute(query, name=name)
+        return [dict(row) for row in rs]

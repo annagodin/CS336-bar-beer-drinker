@@ -10,6 +10,6 @@ export class AppComponent implements AfterViewInit {
   title = 'bar-beer-drinker-plus-ui';
 
   ngAfterViewInit() {
-
   }
+  
 }
