@@ -147,3 +147,48 @@ def get_customer_transactions(name):
             ')
         rs = con.execute(query, name=name)
         return [dict(row) for row in rs]
+
+def get_top_beers_bought(customer_name):
+    with engine.connect() as con:
+        query=sql.text('SELECT t.Customer, i.Name, count(*) as numBought \
+            FROM Transactions t, ItemsByID i \
+            WHERE t.ID = i.ID \
+            AND Type = "Beer" \
+            AND t.Customer = :name \
+            GROUP BY i.Name \
+            ORDER BY numBought desc \
+            LIMIT 10 \
+        ')
+        rs = con.execute(query, name=customer_name)
+        results =  [dict(row) for row in rs]
+        for i, _ in enumerate(results):
+            results[i]['numBought'] = float(results[i]['numBought'])
+        return results
+
+def get_total_spending_per_day(customer_name):
+    with engine.connect() as con:
+        query=sql.text('SELECT t.Customer, t.Date, sum(TotalCost) as TotalSpent\
+            FROM Transactions t\
+            Where t.Customer = :name\
+            Group by t.Customer, t.Date\
+            order by STR_TO_DATE(Date,\'%m/%d/%y\')\
+        ')
+        rs = con.execute(query, name=customer_name)
+        results =  [dict(row) for row in rs]
+        for i, _ in enumerate(results):
+            results[i]['TotalSpent'] = float(results[i]['TotalSpent'])
+        return results
+        
+def get_total_spending_per_bar(customer_name):
+    with engine.connect() as con:
+        query=sql.text(' SELECT t.Customer, t.Bar, ROUND(sum(TotalCost),2) as TotalSpent \
+            FROM Transactions t \
+            Where t.Customer = :name \
+            Group by t.Customer, t.Bar \
+            Order by TotalSpent desc \
+        ')
+        rs = con.execute(query, name=customer_name)
+        results =  [dict(row) for row in rs]
+        for i, _ in enumerate(results):
+            results[i]['TotalSpent'] = float(results[i]['TotalSpent'])
+        return results

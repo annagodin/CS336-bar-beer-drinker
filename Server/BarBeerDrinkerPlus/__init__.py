@@ -141,3 +141,32 @@ def get_customer_transactions(name):
     except Exception as e:
         return make_response(str(e), 500)
 
+
+@app.route('/api/top-beers/<customer>', methods=['GET'])
+def get_top_beers_bought(customer):
+    try:
+        if customer is None:   
+            raise ValueError("Customer is not specified.")
+        return jsonify(database.get_top_beers_bought(customer))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+# FOR THE GRAPH FOR 
+# bar graph of his/her spending on different dates.
+@app.route('/api/total-spending-day/<customer>', methods=['GET'])
+def get_total_spending_per_day(customer):
+    try:
+        if customer is None:   
+            raise ValueError("Customer is not specified.")
+        return jsonify(database.get_total_spending_per_day(customer))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/total-spending-bar/<customer>', methods=['GET'])
+def get_total_spending_per_bar(customer):
+    try:
+        if customer is None:   
+            raise ValueError("Customer is not specified.")
+        return jsonify(database.get_total_spending_per_bar(customer))
+    except Exception as e:
+        return make_response(str(e), 500)

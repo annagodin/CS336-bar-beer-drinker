@@ -12,11 +12,7 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { BarDetailsComponent } from './bar-details/bar-details.component';
 import { BeerDetailsComponent } from './beer-details/beer-details.component';
-<<<<<<< HEAD
 import { DrinkerComponent} from './drinker/drinker.component';
-=======
-import { DrinkerComponent} from './drinker/drinker.component';
->>>>>>> 4402816954d182e29d94b5ffbf844422365f1d3c
 
 @NgModule({
   declarations: [
