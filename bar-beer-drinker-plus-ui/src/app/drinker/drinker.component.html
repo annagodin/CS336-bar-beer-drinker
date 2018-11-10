@@ -5,3 +5,30 @@
   </div>
 </div>
 
+
+
+<div class="container">
+  <p-table [value]="bars">
+    <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Licence</th>
+          <th>City</th>
+          <th>Phone</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-bar>
+        <tr>
+          <td>
+            <a routerLink="/bars/{{ bar.Bar }}">
+              {{ bar.Bar }}
+            </a>
+          </td>
+          <td>{{ bar.License }}</td>
+          <td>{{ bar.City }}</td>
+          <td>{{ bar.Phone }}</td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div>
+

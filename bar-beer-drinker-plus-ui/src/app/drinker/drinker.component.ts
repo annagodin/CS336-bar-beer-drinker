@@ -8,39 +8,27 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 })
 export class DrinkerComponent implements OnInit {
 
-  // drinks: any[];
-  // manufacturerOptions: SelectItem[];
+  // bars: Bar[];
 
-  // originalBeersList: any[];
-
-  // constructor(private beerService: BeersService) {
-  //   this.beerService.getBeers().subscribe(
-  //     data => {
-  //       this.drinks = data;
-  //       this.originalBeersList = data;
-  //     }
-  //   );
-  //   this.beerService.getBeerManufacturers().subscribe(
-  //     data => {
-  //       this.manufacturerOptions = data.map(manf => {
-  //         return {
-  //           label: manf,
-  //           value: manf,
-  //         };
-  //       });
-  //     }
-  //   );
+  // constructor(
+  //   public barService: BarsService
+  // ) { 
+  //   this.getBars();
   // }
 
-   ngOnInit() {
-   }
-
-  // filterBeers(manufacturer: string) {
-  //   this.drinks = this.originalBeersList;
-  //   if (manufacturer) {
-  //     this.drinks = this.originalBeersList.filter(beer => beer.manf === manufacturer);
+  ngOnInit() {
+  }
+ 
+  // getBars(){
+  //   this.barService.getBars().subscribe(
+  //     data =>  {
+  //         this.bars = data;
+  //     },
+  //     error => {
+  //         alert('could not retrieve a list of bars');
+  //     }
+  //   );
   //   }
-  // }
 
 }
   
