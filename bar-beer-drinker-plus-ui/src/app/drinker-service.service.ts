@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface Transactions {
-  name: string;
-  license: string;
-  city: string;
-  phone: string;
-  addr: string;
+  bar: string;
+  ID: string;
+  date: string;
+  day: string;
+  time: string;
+  customer: string
+  tip: string
+  total_cost: string
 }
 
 @Injectable({

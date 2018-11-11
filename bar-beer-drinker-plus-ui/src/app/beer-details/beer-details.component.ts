@@ -38,11 +38,53 @@ export class BeerDetailsComponent implements OnInit {
             this.manufacturer = data;
           }
         );
-      });
-    }
-        
+
+      this.filterOptions = [
+        {
+          'label': 'Low price first',
+          'value': 'low price'
+        },
+        {
+          'label': 'High price first',
+          'value': 'high price'
+        },
+        {
+          'label': 'Most frequented first',
+          'value': 'high customer'
+        },
+        {
+          'label': 'Least frequented first',
+          'value': 'low customer'
+        }
+      ];
+    });
+  }
+
 
   ngOnInit() {
   }
+
+  sortBy(event) {
+    if (event === 'low price') {
+      this.beerLocations.sort((a, b) => {
+        return a.Price - b.Price;
+      });
+    } else if (event === 'high price') {
+      this.beerLocations.sort((a, b) => {
+        debugger;
+        return b.Price - a.Price;
+      });
+    } else if (event === 'low customer') {
+      this.beerLocations.sort((a, b) => {
+        return a.Customers - b.Customers;
+      });
+    } else if (event === 'high customer') {
+      this.beerLocations.sort((a, b) => {
+        return b.Customers - a.Customers;
+      });
+    }
+  }
+
+
 
 }
