@@ -131,6 +131,10 @@ def get_customer_transactions(name):
     except Exception as e:
         return make_response(str(e), 500)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12799dd533044e626ee96530d8e62ef7b1291a93
 @app.route('/api/top-beers/<customer>', methods=['GET'])
 def get_top_beers_bought(customer):
     try:
@@ -158,6 +162,7 @@ def get_total_spending_per_bar(customer):
             raise ValueError("Customer is not specified.")
         return jsonify(database.get_total_spending_per_bar(customer))
     except Exception as e:
+<<<<<<< HEAD
         return make_response(str(e), 500)
 
 @app.route('/api/top-spenders/<bar>', methods=['GET'])
@@ -176,4 +181,6 @@ def get_top_beers_per_bar(bar):
             raise ValueError("Bar is not specified")
         return jsonify(database.get_top_beers_per_bar(bar))
     except Exception as e:
+=======
+>>>>>>> 12799dd533044e626ee96530d8e62ef7b1291a93
         return make_response(str(e), 500)

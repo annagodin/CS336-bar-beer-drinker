@@ -13,6 +13,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { BarDetailsComponent } from './bar-details/bar-details.component';
 import { BeerDetailsComponent } from './beer-details/beer-details.component';
 import { DrinkerComponent} from './drinker/drinker.component';
+import { BeersComponent } from './beers/beers.component';
+import { FormsModule } from '@angular/forms';
+import { InsightComponent } from './insight/insight.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,16 @@ import { DrinkerComponent} from './drinker/drinker.component';
     WelcomeComponent,
     BarDetailsComponent,
     BeerDetailsComponent,
-    DrinkerComponent
+    DrinkerComponent,
+    BeersComponent,
+    InsightComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     DropdownModule,
+    FormsModule,
     TableModule,
     AppRoutingModule,
   ],
