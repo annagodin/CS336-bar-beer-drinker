@@ -116,10 +116,6 @@ def get_likes(customer_name):
         query = sql.text('SELECT Beer FROM Likes WHERE Customer = :name;')
         rs = con.execute(query, name=customer_name)
         return [row['Beer'] for row in rs]
-<<<<<<< HEAD
-=======
-
->>>>>>> 12799dd533044e626ee96530d8e62ef7b1291a93
 
 def get_customer_info(customer_name):
     with engine.connect() as con:
@@ -184,7 +180,6 @@ def get_total_spending_per_bar(customer_name):
         results =  [dict(row) for row in rs]
         for i, _ in enumerate(results):
             results[i]['TotalSpent'] = float(results[i]['TotalSpent'])
-<<<<<<< HEAD
         return results
 
 def get_top_spenders_per_bar(bar_name):
@@ -216,6 +211,4 @@ def get_top_beers_per_bar(bar_name):
         results =  [dict(row) for row in rs]
         # for i, _ in enumerate(results):
         #     results[i]['numBought'] = float(results[i]['numBought'])
-=======
->>>>>>> 12799dd533044e626ee96530d8e62ef7b1291a93
         return results
