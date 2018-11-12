@@ -26,11 +26,11 @@ export class DrinkerComponent implements OnInit {
     this.drinkerService.getCustomers().subscribe(
       data =>  {
           this.drinkers = data;
-          debugger;
       },
       error => {
           alert('could not retrieve a list of drinkers');
       }
+      
     );
   }
  

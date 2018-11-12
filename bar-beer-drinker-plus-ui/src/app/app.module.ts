@@ -14,6 +14,9 @@ import { BarDetailsComponent } from './bar-details/bar-details.component';
 import { BeerDetailsComponent } from './beer-details/beer-details.component';
 import { DrinkerComponent} from './drinker/drinker.component';
 import { DrinkerTransactionsComponent } from './drinker-transactions/drinker-transactions.component';
+import { BeersComponent } from './beers/beers.component';
+import { FormsModule } from '@angular/forms';
+import { InsightComponent } from './insight/insight.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +25,16 @@ import { DrinkerTransactionsComponent } from './drinker-transactions/drinker-tra
     BarDetailsComponent,
     BeerDetailsComponent,
     DrinkerComponent,
-    DrinkerTransactionsComponent
+    DrinkerTransactionsComponent,
+    BeersComponent,
+    InsightComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     DropdownModule,
+    FormsModule,
     TableModule,
     AppRoutingModule,
   ],

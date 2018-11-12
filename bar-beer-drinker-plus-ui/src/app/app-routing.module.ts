@@ -5,6 +5,9 @@ import { BarDetailsComponent } from './bar-details/bar-details.component';
 import { DrinkerComponent } from './drinker/drinker.component';
 import { BeerDetailsComponent } from './beer-details/beer-details.component';
 import { DrinkerTransactionsComponent } from './drinker-transactions/drinker-transactions.component';
+import { BeersComponent } from './beers/beers.component';
+import { InsightComponent } from './insight/insight.component';
+
 
 
 const routes: Routes = [
@@ -24,19 +27,29 @@ const routes: Routes = [
     component: BarDetailsComponent
   },
   {
-    path: 'drinker',
+    path: 'drinker/:name',
     pathMatch: 'full',
     component: DrinkerTransactionsComponent
   },
   {
-    path: 'drinker/:name',
+    path: 'drinker',
     pathMatch: 'full',
     component: DrinkerComponent
+  },
+  {
+    path: 'beers',
+    pathMatch: 'full',
+    component: BeersComponent
   },
   {
     path: 'beers/:beer',
     pathMatch: 'full',
     component: BeerDetailsComponent
+  },
+  {
+    path: 'insight',
+    pathMatch: 'full',
+    component: InsightComponent
   }
 ];
 

@@ -7,13 +7,13 @@
 
 <div class="container">
 
-  <p-table [value]="bars">
+  <p-table [value]="drinkers">
     <ng-template pTemplate="header">
         <tr>
           <th>Customer</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-bar>
+    <ng-template pTemplate="body" let-drinkers>
         <tr>
           <td>
             <a routerLink="/drinker/{{ drinkers.Customer }}">
