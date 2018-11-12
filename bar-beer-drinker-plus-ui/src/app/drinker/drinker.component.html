@@ -1,34 +1,28 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4">Drinker Page</h1>
-    <p class="lead">Search for a drinker to see their transactions.</p>
+    <p class="lead">Select a customer to view their transactions.</p>
   </div>
 </div>
 
-
-
 <div class="container">
+
   <p-table [value]="bars">
     <ng-template pTemplate="header">
         <tr>
-          <th>Name</th>
-          <th>Licence</th>
-          <th>City</th>
-          <th>Phone</th>
+          <th>Customer</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-bar>
         <tr>
           <td>
-            <a routerLink="/bars/{{ bar.Bar }}">
-              {{ bar.Bar }}
+            <a routerLink="/drinker/{{ drinkers.Customer }}">
+              {{ drinkers.Customer }}
             </a>
           </td>
-          <td>{{ bar.License }}</td>
-          <td>{{ bar.City }}</td>
-          <td>{{ bar.Phone }}</td>
         </tr>
     </ng-template>
   </p-table>
 </div>
 
+<br><br>

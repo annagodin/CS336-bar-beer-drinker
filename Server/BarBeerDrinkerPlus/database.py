@@ -141,12 +141,20 @@ def get_customer_transactions(name):
     with engine.connect() as con:
         query=sql.text('SELECT * FROM BarBeerDrinkerPlus.Transactions \
         where Customer = :name \
-        order by \
+        ORDER BY \
         STR_TO_DATE(Date,\'%m/%d/%y\'), \
         STR_TO_DATE(Time,\'%h:%i %p\'); \
             ')
         rs = con.execute(query, name=name)
         return [dict(row) for row in rs]
+
+        
+def get_customer_names():
+    with engine.connect() as con:
+        query=sql.text('SELECT distinct Customer FROM BarBeerDrinkerPlus.Transactions')
+        rs = con.execute(query, name=name)
+        return [dict(row) for row in rs]
+
 
 def get_top_beers_bought(customer_name):
     with engine.connect() as con:

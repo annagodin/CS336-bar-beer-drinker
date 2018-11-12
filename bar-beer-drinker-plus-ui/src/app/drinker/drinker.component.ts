@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/components/common/selectitem';
+import {DrinkerServiceService, Drinker } from '../drinker-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-drinker',
@@ -8,29 +11,27 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 })
 export class DrinkerComponent implements OnInit {
 
-  // bars: Bar[];
+  drinkers: Drinker[];
 
-  // constructor(
-  //   public barService: BarsService
-  // ) { 
-  //   this.getBars();
-  // }
+  constructor(
+    public drinkerService: DrinkerServiceService
+  ) { 
+    this.getDrinkers();
+  }
 
   ngOnInit() {
   }
  
-  // getBars(){
-  //   this.barService.getBars().subscribe(
-  //     data =>  {
-  //         this.bars = data;
-  //     },
-  //     error => {
-  //         alert('could not retrieve a list of bars');
-  //     }
-  //   );
-  //   }
-
+  getDrinkers(){
+    this.drinkerService.getCustomers().subscribe(
+      data =>  {
+          this.drinkers = data;
+          debugger;
+      },
+      error => {
+          alert('could not retrieve a list of drinkers');
+      }
+    );
+  }
+ 
 }
-  
-
-

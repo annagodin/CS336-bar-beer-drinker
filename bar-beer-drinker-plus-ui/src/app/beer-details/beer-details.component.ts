@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BeersService, BeerLocation } from '../beers.service';
 import { ActivatedRoute } from '@angular/router';
-
 import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({

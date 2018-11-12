@@ -7,9 +7,12 @@ export interface Transactions {
   date: string;
   day: string;
   time: string;
-  customer: string
   tip: string
   total_cost: string
+}
+
+export interface Drinker {
+  customer : string
 }
 
 @Injectable({
@@ -20,15 +23,17 @@ export class DrinkerServiceService {
   constructor(
     public http: HttpClient
   ) { }
+  
+   getTransactions(customer: string) {
+     return this.http.get<Transactions[]>('/api/drinker/' + customer );
+   }
+
+   getCustomers() {
+     return this.http.get<Drinker[]>('api/drinker');
+   }
 
 
-  // getBars() {
-  //   return this.http.get<Bar[]>('/api/bar');
-  // }
-
-  // getBar(bar: string) {
-  //   return this.http.get<Bar>('/api/bar/' + bar);
-  // }
+   
 
   // getMenu(bar: string) {
   //   return this.http.get<BarMenuItem[]>('/api/menu/' + bar);
@@ -37,4 +42,5 @@ export class DrinkerServiceService {
   // getFrequentCounts() {
   //   return this.http.get<any[]>('/api/frequents-data');
   // }
+
 }

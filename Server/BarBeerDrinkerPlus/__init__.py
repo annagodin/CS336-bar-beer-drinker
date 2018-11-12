@@ -112,6 +112,16 @@ def get_customer(name):
     except Exception as e:
         return make_response(str(e), 500)
 
+# @app.route("/api/drinker", methods=["GET"])
+# def get_customer(name):
+#     try:
+#         return jsonify(database.get_customer_info(name))
+#     except ValueError as e:
+#         return make_response(str(e), 400)
+#     except Exception as e:
+#         return make_response(str(e), 500)
+
+
 
 @app.route('/api/bars-selling/<beer>', methods=['GET'])
 def find_bars_selling(beer):
@@ -132,12 +142,19 @@ def get_bar_frequent_counts():
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/customer-transactions/<name>', methods=['GET'])
+@app.route('/api/drinker/<name>', methods=['GET'])
 def get_customer_transactions(name):
     try:
         if name is None:
             raise ValueError("Cutsomer is not specified.")
         return jsonify(database.get_customer_transactions(name))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/drinker', methods=['GET'])
+def get_customer_transactions():
+    try:
+        return jsonify(database.get_customer_names())
     except Exception as e:
         return make_response(str(e), 500)
 
