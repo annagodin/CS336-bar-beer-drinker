@@ -128,9 +128,10 @@ def get_customer_info(customer_name):
 
 def get_customer_transactions(name):
     with engine.connect() as con:
-        query=sql.text('SELECT * FROM BarBeerDrinkerPlus.Transactions \
-        where Customer = :name \
+        query=sql.text('SELECT * FROM BarBeerDrinkerPlus.Transactions t \
+        where t.Customer = :name \
         order by \
+        t.Bar, \
         STR_TO_DATE(Date,\'%m/%d/%y\'), \
         STR_TO_DATE(Time,\'%h:%i %p\'); \
             ')
