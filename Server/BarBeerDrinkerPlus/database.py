@@ -221,3 +221,68 @@ def get_top_beers_per_bar(bar_name):
         # for i, _ in enumerate(results):
         #     results[i]['numBought'] = float(results[i]['numBought'])
         return results
+
+# EACH ROW IS THE PERCENT OF TOTAL SALES OF THE WEEKDAY OVER THE WHOLE TIME PERIOD
+def get_hourly_sale_distribution(bar_name,weekday):
+    with engine.connect() as con:
+        query=sql.text('Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour , count(*)/( \
+                select sum(f.numPerHour) as total FROM ( \
+                    Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour , count(*) as numPerHour \
+                    From Transactions t \
+                    Where t.Bar = :bar \
+                    AND t.Day = :day \
+                    GROUP BY HOUR(STR_TO_DATE(Time,\'%h:%i %p\')) \
+                    ) f \
+                ) as percentPerHour \
+            From Transactions t \
+            Where t.Bar = :bar \
+            AND t.Day = :day \
+            GROUP BY HOUR(STR_TO_DATE(Time,\'%h:%i %p\')) \
+        ')
+        rs = con.execute(query, bar = bar_name, day=weekday)
+        results =  [dict(row) for row in rs]
+        for i, _ in enumerate(results):
+            results[i]['percentPerHour'] = float(results[i]['percentPerHour'])
+        return results
+
+def get_top_bars_per_beer(beer):
+    with engine.connect() as con:
+        query=sql.text('  Select t.Bar, count(*) as NumBought \
+            From Transactions t, ItemsByID i \
+            Where t.ID = i.ID AND \
+            i.Name = :beer \
+            Group by t.Bar \
+            order by NumBought desc \
+            limit 10 \
+        ')
+        rs = con.execute(query, beer = beer)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_top_customers_per_beer(beer):
+    with engine.connect() as con:
+        query=sql.text('   Select t.Customer, count(*) as NumBought \
+            From Transactions t, ItemsByID i \
+            Where t.ID = i.ID AND \
+            i.Name = :beer \
+            Group by t.Customer \
+            order by NumBought desc \
+            limit 10 \
+        ')
+        rs = con.execute(query, beer = beer)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_beer_sales_distribution(beer):
+    with engine.connect() as con:
+        query=sql.text(' Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour, count(*) as NumBought \
+            From Transactions t, ItemsByID i \
+            Where t.ID = i.ID AND \
+            i.Name = "Icehouse" \
+            Group by Hour \
+            order by Hour \
+            limit 10 \
+        ')
+        rs = con.execute(query, beer = beer)
+        results =  [dict(row) for row in rs]
+        return results
