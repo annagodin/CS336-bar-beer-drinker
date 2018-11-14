@@ -288,7 +288,7 @@ def get_beer_sales_distribution(beer):
         query=sql.text(' Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour, count(*) as NumBought \
             From Transactions t, ItemsByID i \
             Where t.ID = i.ID AND \
-            i.Name = "Icehouse" \
+            i.Name = :beer \
             Group by Hour \
             order by Hour \
             limit 10 \
@@ -336,5 +336,19 @@ def get_top_beers_sold(bartender):
             Order by numBeersSold desc \
         ')
         rs = con.execute(query, bartender=bartender)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_shift_hours(bar):
+    with engine.connect() as con:
+        query = sql.text('SELECT s.Day, s.Open, s.Close from ShiftHours s Where s.Bar = :bar')
+        rs = con.execute(query, bar=bar)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_shifts_per_day(bar,day):
+    with engine.connect() as con:
+        query = sql.text('SELECT s.Open, s.Close from ShiftHours s Where s.Bar = :bar AND s.Day = :day')
+        rs = con.execute(query, bar=bar, day=day)
         results =  [dict(row) for row in rs]
         return results
