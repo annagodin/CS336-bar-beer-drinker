@@ -189,6 +189,8 @@ def get_hourly_sale_distribution(bar,day):
     try:
         if bar is None:
              raise ValueError("Bar is not specified")
+        if day is None:
+            raise ValueError("Day is not specified")
         return jsonify(database.get_hourly_sale_distribution(bar,day))
     except Exception as e:
         return make_response(str(e), 500)
@@ -220,6 +222,17 @@ def get_beer_sales_distribution(beer):
              raise ValueError("Beer is not specified")
         return jsonify(database.get_beer_sales_distribution(beer))
     except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/bartender-shifts/<bar>/<bartender>', methods =['GET'])
+def get_bartender_shifts(bartender,bar):
+    try:
+        if bar is None:
+            raise ValueError("Bar is not specified")
+        if bartender is None:
+            raise ValueError("Bartender is not specified")
+        return jsonify(database.get_bartender_shifts(bartender,bar))
+    except Excpetion as e:
         return make_response(str(e), 500)
 
 

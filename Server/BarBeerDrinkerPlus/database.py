@@ -286,3 +286,15 @@ def get_beer_sales_distribution(beer):
         rs = con.execute(query, beer = beer)
         results =  [dict(row) for row in rs]
         return results
+
+def get_bartender_shifts(bartender,bar):
+    with engine.connect() as con:
+        query=sql.text('Select distinct t.Date, t.Day, b.ShiftStart, b.ShiftEnd \
+            from Transactions t, Bartenders b \
+            Where b.Bartender = :bartender \
+            And b.Bar = :bar \
+            and t.Day = b.Day \
+        ')
+        rs = con.execute(query, bartender=bartender, bar=bar)
+        results =  [dict(row) for row in rs]
+        return results
