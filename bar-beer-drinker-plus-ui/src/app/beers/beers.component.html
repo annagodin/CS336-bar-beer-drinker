@@ -21,10 +21,15 @@
     </ng-template>
     <ng-template pTemplate="body" let-beer>
       <tr>
-        <td (click)="onBeerGraph($event)">{{ beer.Name }}</td>
+        <td (click)="onBeerGraph(beer.Name)" ng-click="gotoAnchor(1)">{{ beer.Name }}</td>
         <td>{{ beer.Manufacturer }}</td>
       </tr>
     </ng-template>
   </p-table>
   <br><br>
+</div>
+
+<div id="anchor{{1}}" class="container anchor">
+  <br>
+  <div id="bargraph"></div>
 </div>

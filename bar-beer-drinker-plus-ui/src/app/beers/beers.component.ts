@@ -3,6 +3,8 @@ import { BeersService } from '../beers.service';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
 
+declare const Highcharts: any;
+
 @Component({
   selector: 'app-beers',
   templateUrl: './beers.component.html',
@@ -12,6 +14,7 @@ export class BeersComponent implements OnInit {
 
   beers: any[];
   manufacturerOptions: SelectItem[];
+  top : any[];
 
   originalBeersList: any[];
 
@@ -44,8 +47,68 @@ export class BeersComponent implements OnInit {
     }
   }
 
-  onBeerGraph(testing: any){
-    console.log("It has been clicked: ", testing);
+  onBeerGraph(event: any){
+    console.log("It has been clicked: [", event, "]");
+    
+    this.beerService.getTopSellingBars(event).subscribe(
+      data => {
+        const bars = [];
+        const counts = [];
+
+        data.forEach(bar => {
+          bars.push(bar.Bar);
+          counts.push(bar.NumBought);
+        });
+
+        this.renderChartTopBars(bars, counts, event);
+
+        console.log(data)
+      }
+    );
   }
+
+  renderChartTopBars(bars: string[], counts: number[], event: any) {
+    Highcharts.chart('bargraph', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Top Selling Bars That Sell: '+ event + '.'
+      },
+      xAxis: {
+        categories: bars,
+        title: {
+          text: 'Bar'
+        }
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'Number of Beers Sold'
+        },
+        labels: {
+          overflow: 'justify'
+        }
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          }
+        }
+      },
+      legend: {
+        enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        data: counts
+      }]
+    });
+  }
+
+
   
 }

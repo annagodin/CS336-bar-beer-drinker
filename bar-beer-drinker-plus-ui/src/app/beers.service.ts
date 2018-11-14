@@ -29,4 +29,9 @@ export class BeersService {
     return this.http.get<string[]>('/api/beer-manufacturer');
   }
 
+  getTopSellingBars(beer: string): any{
+    return this.http.get<string[]>(`/api/top-bars/${beer}`)
+  }
+  
+
 }
