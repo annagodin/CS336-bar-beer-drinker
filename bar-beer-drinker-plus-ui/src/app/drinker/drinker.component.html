@@ -6,8 +6,7 @@
 </div>
 
 <div class="container">
-
-  <p-table [value]="drinkers">
+    <p-table [value]="drinkers" [paginator]="true" [rows]="20">
     <ng-template pTemplate="header">
         <tr>
           <th>Customer</th>
@@ -24,5 +23,4 @@
     </ng-template>
   </p-table>
 </div>
-
 <br><br>
