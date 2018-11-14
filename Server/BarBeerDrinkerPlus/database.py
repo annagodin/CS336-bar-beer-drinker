@@ -296,9 +296,7 @@ def get_beer_sales_distribution(beer):
         rs = con.execute(query, beer = beer)
         results =  [dict(row) for row in rs]
         return results
-
         
-
 def get_bartender_shifts(bartender,bar):
     with engine.connect() as con:
         query=sql.text('Select distinct t.Date, t.Day, b.ShiftStart, b.ShiftEnd \
@@ -308,5 +306,35 @@ def get_bartender_shifts(bartender,bar):
             and t.Day = b.Day \
         ')
         rs = con.execute(query, bartender=bartender, bar=bar)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_top_beers_sold(bartender):
+    with engine.connect() as con:
+        query=sql.text('Select i.Name as BeerName, count(*) as numBeersSold \
+            FROM Transactions t, Bartenders b, ItemsByID i \
+            WHERE b.Bartender = :bartender \
+            AND b.Bar = t.Bar \
+            AND t.Day = b.Day \
+            AND t.ID=i.ID \
+            AND i.Type = "Beer" \
+            AND ( \
+                ( \
+                    HOUR(STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\'))<12 AND \
+                    ( \
+                        ( HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= HOUR(STR_TO_DATE(b.ShiftStart,\'%h:%i %p\')) ) \
+                            OR \
+                        (HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= 0 AND STR_TO_DATE(t.Time,\'%h:%i %p\')<=STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
+                    ) \
+                ) \
+                OR \
+                ( \
+                    (STR_TO_DATE(t.Time,\'%h:%i %p\') >= STR_TO_DATE(b.ShiftStart,\'%h:%i %p\') AND STR_TO_DATE(t.Time,\'%h:%i %p\') <= STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
+                ) \
+            ) \
+            Group by i.Name \
+            Order by numBeersSold desc \
+        ')
+        rs = con.execute(query, bartender=bartender)
         results =  [dict(row) for row in rs]
         return results

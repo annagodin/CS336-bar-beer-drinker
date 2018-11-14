@@ -247,4 +247,11 @@ def get_bartender_shifts(bartender,bar):
         return make_response(str(e), 500)
 
 
- 
+@app.route('/api/bartender-sales/<bartender>', methods=['GET'])
+def get_top_beers_sold(bartender):
+    try:
+        if bartender is None:
+            raise ValueError("Bartender is not specified")
+        return jsonify(database.get_top_beers_sold(bartender))
+    except Excpetion as e:
+        return make_response(str(e), 500)
