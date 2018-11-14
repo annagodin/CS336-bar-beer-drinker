@@ -43,4 +43,9 @@ export class BeersComponent implements OnInit {
       this.beers = this.originalBeersList.filter(beer => beer.Manufacturer === manufacturer);
     }
   }
+
+  onBeerGraph(testing: any){
+    console.log("It has been clicked: ", testing);
+  }
+  
 }

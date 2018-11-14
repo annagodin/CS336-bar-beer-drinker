@@ -11,7 +11,7 @@
   <br>
 
 <div class="container">
-  <h2 class="text-center font-weight-light">Beers</h2>
+  <h2 class="text-center font-weight-light" >Beers</h2>
   <p-table [value]="beers" [paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
       <tr>
@@ -21,7 +21,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-beer>
       <tr>
-        <td><a routerLink="/beers/{{ beer.Name }}">{{ beer.Name }}</a></td>
+        <td (click)="onBeerGraph($event)">{{ beer.Name }}</td>
         <td>{{ beer.Manufacturer }}</td>
       </tr>
     </ng-template>
