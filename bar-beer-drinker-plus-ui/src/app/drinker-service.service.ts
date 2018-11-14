@@ -15,6 +15,13 @@ export interface Drinker {
   customer : string
 }
 
+export interface Items {
+  ID: string;
+  type: string;
+  Name: string;
+  price: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,15 +39,9 @@ export class DrinkerServiceService {
      return this.http.get<Drinker[]>('api/drinker');
    }
 
+   getItemsPurchased(id : string, customer: string) {
+    return this.http.get<Items[]>('/api/drinker/' + customer + '/' + id );
+   }
 
-   
-
-  // getMenu(bar: string) {
-  //   return this.http.get<BarMenuItem[]>('/api/menu/' + bar);
-  // }
-
-  // getFrequentCounts() {
-  //   return this.http.get<any[]>('/api/frequents-data');
-  // }
 
 }

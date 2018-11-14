@@ -7,6 +7,7 @@ import { BeerDetailsComponent } from './beer-details/beer-details.component';
 import { DrinkerTransactionsComponent } from './drinker-transactions/drinker-transactions.component';
 import { BeersComponent } from './beers/beers.component';
 import { InsightComponent } from './insight/insight.component';
+import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
 
 
 
@@ -35,6 +36,11 @@ const routes: Routes = [
     path: 'drinker',
     pathMatch: 'full',
     component: DrinkerComponent
+  },
+  {
+    path: 'drinker/:name/:id',
+    pathMatch: 'full',
+    component: ItemsPurchasedComponent
   },
   {
     path: 'beers',

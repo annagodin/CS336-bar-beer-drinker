@@ -15,10 +15,6 @@ export class DrinkerTransactionsComponent implements OnInit {
      transactions: Transactions[];
      drinkerName : string
   
-    filterOptions: SelectItem[];
-    sortField: string;
-    sortOrder: number;
-  
      constructor(
       private drinkerService: DrinkerServiceService,
       private route: ActivatedRoute) {

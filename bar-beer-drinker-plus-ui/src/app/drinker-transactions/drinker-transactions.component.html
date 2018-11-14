@@ -5,12 +5,11 @@
   </div>
 </div>
 
-
-
 <div class="container">
   <p-table [value]="transactions">
     <ng-template pTemplate="header">
         <tr>
+          <th>ID</th>
           <th>Bar</th>
           <th>Date</th>
           <th>Day</th>
@@ -21,6 +20,11 @@
     </ng-template>
     <ng-template pTemplate="body" let-transactions>
         <tr>
+            <td>
+                <a routerLink="/drinker/{{ transactions.Customer }}/{{transactions.ID}}">
+                  {{ transactions.ID }}
+                </a>
+              </td>
           <td>{{ transactions.Bar }}</td>
           <td>{{ transactions.Date }}</td>
           <td>{{ transactions.Day }}</td>
