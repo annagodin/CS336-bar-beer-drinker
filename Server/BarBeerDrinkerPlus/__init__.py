@@ -247,3 +247,4 @@ def get_bartender_shifts(bartender,bar):
         return make_response(str(e), 500)
 
 
+ 
