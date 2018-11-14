@@ -3,6 +3,7 @@
       <h1 class="display-4">Find your favorite beers!</h1>
       <p class="lead">This page can be used to see all the beers in our system or just the ones by your preferred
         manufacturer.</p>
+        <p class="lead">Please click on a beer to have some data analytics load about it.</p>
       <p-dropdown *ngIf="manufacturerOptions" [ngClass]="{ 'no-option-selected': selectedManufacturer === undefined || selectedManufacturer === null }"
         placeholder="Filter by manufacturer" [options]="manufacturerOptions" [(ngModel)]="selectedManufacturer" showClear="true"
         (onChange)="filterBeers($event.value)"></p-dropdown>
@@ -21,7 +22,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-beer>
       <tr>
-        <td (click)="onBeerGraph(beer.Name)" ng-click="gotoAnchor(1)">{{ beer.Name }}</td>
+        <td (click)="onBeerGraph(beer.Name)">{{ beer.Name }}</td>
         <td>{{ beer.Manufacturer }}</td>
       </tr>
     </ng-template>
@@ -29,7 +30,22 @@
   <br><br>
 </div>
 
-<div id="anchor{{1}}" class="container anchor">
+<div class="container">
   <br>
   <div id="bargraph"></div>
 </div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+<div class="container">
+    <br>
+    <div id="container"></div>
+  </div>
+
+<div class="container">
+    <br>
+    <div id="testing"></div>
+  </div>
+  
