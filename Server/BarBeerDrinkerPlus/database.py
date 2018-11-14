@@ -296,6 +296,7 @@ def get_beer_sales_distribution(beer):
         rs = con.execute(query, beer = beer)
         results =  [dict(row) for row in rs]
         return results
+
         
 
 def get_bartender_shifts(bartender,bar):
