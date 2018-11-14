@@ -131,6 +131,17 @@ def get_customer_transactions(name):
     except Exception as e:
         return make_response(str(e), 500)
 
+@app.route('/api/drinker/<name>/<id>', methods=['GET'])
+def get_items(name, id):
+    try:
+        if name is None:
+            raise ValueError("Customer is not specified.")
+        if id is None:
+            raise ValueError("Id is not specified.")
+        return jsonify(database.get_items(name, id))
+    except Exception as e:
+        return make_response(str(e), 500)
+
 @app.route('/api/drinker', methods=['GET'])
 def get_customer_names():
     try:
