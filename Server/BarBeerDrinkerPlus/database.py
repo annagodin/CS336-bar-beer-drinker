@@ -352,3 +352,40 @@ def get_shifts_per_day(bar,day):
         rs = con.execute(query, bar=bar, day=day)
         results =  [dict(row) for row in rs]
         return results
+
+def get_bartender_analytics(bar,day,start,end):
+    with engine.connect() as con:
+        query = sql.text('Select b.Bartender, count(*) as totalBeersSold  \
+            FROM Transactions t, Bartenders b, ItemsByID i, ShiftHours s \
+            WHERE s.Bar = :bar \
+			AND s.Day = :day \
+			AND s.Open = :start \
+			AND s.Close = :end \
+            AND b.ShiftStart = s.Open \
+            AND b.ShiftEnd = s.Close \
+            And b.Bar = s.Bar \
+            AND b.Day = s.Day \
+            AND b.Bar = t.Bar \
+            AND t.Day = b.Day \
+            AND t.ID=i.ID \
+            AND i.Type = "Beer" \
+            AND ( \
+                ( \
+                    HOUR(STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\'))<12 AND  \
+                    ( \
+                        ( HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= HOUR(STR_TO_DATE(b.ShiftStart,\'%h:%i %p\')) ) \
+                            OR \
+                        (HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= 0 AND STR_TO_DATE(t.Time,\'%h:%i %p\')<=STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
+                    ) \
+                ) \
+                OR \
+                ( \
+                    (STR_TO_DATE(t.Time,\'%h:%i %p\') >= STR_TO_DATE(b.ShiftStart,\'%h:%i %p\') AND STR_TO_DATE(t.Time,\'%h:%i %p\') <= STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
+                ) \
+            ) \
+            Group by b.Bartender \
+            order by totalBeersSold \
+        ')
+        rs = con.execute(query, bar=bar, day=day, start=start, end=end)
+        results =  [dict(row) for row in rs]
+        return results

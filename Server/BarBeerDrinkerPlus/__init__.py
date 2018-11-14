@@ -122,7 +122,7 @@ def get_bar_frequent_counts():
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/customer-transactions/<name>', methods=['GET'])
+@app.route('/api/drinker/<name>', methods=['GET'])
 def get_customer_transactions(name):
     try:
         if name is None:
@@ -276,3 +276,18 @@ def get_shifts_per_day(bar,day):
         return jsonify(database.get_shifts_per_day(bar,day))
     except Exception as e:
         return make_response(str(e), 500)   
+
+@app.route('/api/bartender-analytics/<bar>/<day>/<start>/<end>', methods=['GET'])
+def get_bartender_analytics(bar,day,start,end):
+    try:
+        if bar is None:
+            raise ValueError("Bar is not specified")
+        if day is None:
+            raise ValueError("Day is not specified")
+        if start is None:
+            raise ValueError("Shift Start is not specified")
+        if end is None:
+            raise ValueError("Shift End is not specified")
+        return jsonify(database.get_bartender_analytics(bar,day,start,end))
+    except Exception as e:
+        return make_response(str(e), 500) 
