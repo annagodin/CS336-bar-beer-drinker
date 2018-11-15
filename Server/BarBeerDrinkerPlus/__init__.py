@@ -132,13 +132,11 @@ def get_customer_transactions(name):
         return make_response(str(e), 500)
 
 @app.route('/api/drinker/<name>/<id>', methods=['GET'])
-def get_items(name, id):
+def get_items(id, name):
     try:
-        if name is None:
-            raise ValueError("Customer is not specified.")
         if id is None:
-            raise ValueError("Id is not specified.")
-        return jsonify(database.get_items(name, id))
+            raise ValueError("ID is not specified.")
+        return jsonify(database.get_items(id,name))
     except Exception as e:
         return make_response(str(e), 500)
 

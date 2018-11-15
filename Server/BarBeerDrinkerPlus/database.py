@@ -145,16 +145,14 @@ def get_customer_names():
         rs = con.execute(query)
         return [dict(row) for row in rs]
 
-def get_items(name, id):
+def get_items(id,name):
      with engine.connect() as con:
         query = sql.text('Select i.type, i.Name, i.price from BarBeerDrinkerPlus.ItemsByID i \
          where i.ID = :id; \
          ')
-        rs = con.execute(query, name = name, id=id)
-        result = rs.first()
-        if result is None:
-            return None
-        return dict(result)
+        rs = con.execute(query, id=id, name=name)
+        results =  [dict(row) for row in rs]
+        return results
 
 def get_top_beers_bought(customer_name):
     with engine.connect() as con:
@@ -285,7 +283,7 @@ def get_top_customers_per_beer(beer):
 
 def get_beer_sales_distribution(beer):
     with engine.connect() as con:
-        query=sql.text(' Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour, count(*) as NumBought \
+        query=sql.text('Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour, count(*) as NumBought \
             From Transactions t, ItemsByID i \
             Where t.ID = i.ID AND \
             i.Name = :beer \
