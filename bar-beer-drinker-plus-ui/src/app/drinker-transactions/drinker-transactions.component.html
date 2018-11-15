@@ -29,8 +29,8 @@
           <td>{{ transactions.Date }}</td>
           <td>{{ transactions.Day }}</td>
           <td>{{ transactions.Time }}</td>
-          <td>{{ transactions.Tip }}</td>
-          <td>{{ transactions.TotalCost }}</td>
+          <td>{{ transactions.Tip | currency}}</td>
+          <td>{{ transactions.TotalCost | currency}}</td>
         </tr>
     </ng-template>
   </p-table>

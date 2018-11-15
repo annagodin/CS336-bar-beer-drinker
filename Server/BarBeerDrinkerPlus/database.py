@@ -151,10 +151,9 @@ def get_items(name, id):
          where i.ID = :id; \
          ')
         rs = con.execute(query, name = name, id=id)
-        result = rs.first()
-        if result is None:
-            return None
-        return dict(result)
+        results = [dict(row) for row in rs]
+        return results
+
 
 def get_top_beers_bought(customer_name):
     with engine.connect() as con:
