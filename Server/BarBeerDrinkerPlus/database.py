@@ -150,9 +150,10 @@ def get_items(id,name):
         query = sql.text('Select i.type, i.Name, i.price from BarBeerDrinkerPlus.ItemsByID i \
          where i.ID = :id; \
          ')
-        rs = con.execute(query, id=id, name=name)
-        results =  [dict(row) for row in rs]
+        rs = con.execute(query, name = name, id=id)
+        results = [dict(row) for row in rs]
         return results
+
 
 def get_top_beers_bought(customer_name):
     with engine.connect() as con:
