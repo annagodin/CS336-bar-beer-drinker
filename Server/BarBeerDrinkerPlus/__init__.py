@@ -74,7 +74,7 @@ def get_manufacturers_making(beer):
     except Exception as e:
         return make_response(str(e), 500)
 
- #WTF IS UP WITH THIS ONE??????
+
 
 @app.route("/api/likes", methods=["GET"])
 def get_likes():
@@ -148,8 +148,6 @@ def get_customer_names():
         return jsonify(database.get_customer_names())
     except Exception as e:
         return make_response(str(e), 500)
-
-
 @app.route('/api/top-beers/<customer>', methods=['GET'])
 def get_top_beers_bought(customer):
     try:
@@ -196,3 +194,100 @@ def get_top_beers_per_bar(bar):
         return jsonify(database.get_top_beers_per_bar(bar))
     except Exception as e:
         return make_response(str(e), 500)
+
+@app.route('/api/busiest-hours/<bar>/<day>', methods=['GET'])
+def get_hourly_sale_distribution(bar,day):
+    try:
+        if bar is None:
+             raise ValueError("Bar is not specified")
+        if day is None:
+            raise ValueError("Day is not specified")
+        return jsonify(database.get_hourly_sale_distribution(bar,day))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/top-bars/<beer>', methods=['GET'])
+def get_top_bars_per_beer(beer):
+    try:
+        if beer is None:
+             raise ValueError("Beer is not specified")
+        return jsonify(database.get_top_bars_per_beer(beer))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+@app.route('/api/top-customers/<beer>', methods=['GET'])
+def get_top_customers_per_beer(beer):
+    try:
+        if beer is None:
+             raise ValueError("Beer is not specified")
+        return jsonify(database.get_top_customers_per_beer(beer))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+@app.route('/api/beer-sale-distribution/<beer>', methods=['GET'])
+def get_beer_sales_distribution(beer):
+    try:
+        if beer is None:
+             raise ValueError("Beer is not specified")
+        return jsonify(database.get_beer_sales_distribution(beer))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/bartender-shifts/<bar>/<bartender>', methods =['GET'])
+def get_bartender_shifts(bartender,bar):
+    try:
+        if bar is None:
+            raise ValueError("Bar is not specified")
+        if bartender is None:
+            raise ValueError("Bartender is not specified")
+        return jsonify(database.get_bartender_shifts(bartender,bar))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+@app.route('/api/bartender-sales/<bartender>', methods=['GET'])
+def get_top_beers_sold(bartender):
+    try:
+        if bartender is None:
+            raise ValueError("Bartender is not specified")
+        return jsonify(database.get_top_beers_sold(bartender))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/shift-hours/<bar>', methods=['GET'])
+def get_shift_hours(bar):
+    try:
+        if bar is None:
+            raise ValueError("Bar is not specified")
+        return jsonify(database.get_shift_hours(bar))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+@app.route('/api/shift-hours/<bar>/<day>', methods=['GET'])
+def get_shifts_per_day(bar,day):
+    try:
+        if bar is None:
+            raise ValueError("Bar is not specified")
+        if day is None:
+            raise ValueError("Day is not specified")
+        return jsonify(database.get_shifts_per_day(bar,day))
+    except Exception as e:
+        return make_response(str(e), 500)   
+
+@app.route('/api/bartender-analytics/<bar>/<day>/<start>/<end>', methods=['GET'])
+def get_bartender_analytics(bar,day,start,end):
+    try:
+        if bar is None:
+            raise ValueError("Bar is not specified")
+        if day is None:
+            raise ValueError("Day is not specified")
+        if start is None:
+            raise ValueError("Shift Start is not specified")
+        if end is None:
+            raise ValueError("Shift End is not specified")
+        return jsonify(database.get_bartender_analytics(bar,day,start,end))
+    except Exception as e:
+        return make_response(str(e), 500) 
