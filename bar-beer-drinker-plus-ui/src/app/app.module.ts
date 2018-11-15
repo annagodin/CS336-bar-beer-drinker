@@ -18,6 +18,7 @@ import { BeersComponent } from './beers/beers.component';
 import { FormsModule } from '@angular/forms';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
+import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ItemsPurchasedComponent } from './items-purchased/items-purchased.compo
     DrinkerTransactionsComponent,
     BeersComponent,
     InsightComponent,
-    ItemsPurchasedComponent
+    ItemsPurchasedComponent,
+    DrinkerAnalyticsComponent
   ],
   imports: [
     BrowserModule,

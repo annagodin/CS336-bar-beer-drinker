@@ -8,6 +8,7 @@ import { DrinkerTransactionsComponent } from './drinker-transactions/drinker-tra
 import { BeersComponent } from './beers/beers.component';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
+import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
 
 
 
@@ -41,6 +42,11 @@ const routes: Routes = [
     path: 'drinker/:name/:id',
     pathMatch: 'full',
     component: ItemsPurchasedComponent
+  },
+  {
+    path: 'drinker/top-beers/:customer',
+    pathMatch: 'full',
+    component: DrinkerAnalyticsComponent
   },
   {
     path: 'beers',

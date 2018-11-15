@@ -157,7 +157,7 @@ def get_items(name, id):
 
 def get_top_beers_bought(customer_name):
     with engine.connect() as con:
-        query=sql.text('SELECT t.Customer, i.Name, count(*) as numBought \
+        query=sql.text('SELECT i.Name, count(*) as numBought \
             FROM Transactions t, ItemsByID i \
             WHERE t.ID = i.ID \
             AND Type = "Beer" \
