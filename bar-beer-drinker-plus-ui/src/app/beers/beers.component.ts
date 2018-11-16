@@ -52,7 +52,6 @@ export class BeersComponent implements OnInit {
     
     this.beerService.getTopSellingBars(event).subscribe(
       data => {
-        console.log("Data:" ,data);
         const bars = [];
         const counts = [];
 
@@ -66,7 +65,6 @@ export class BeersComponent implements OnInit {
 
     this.beerService.getTopCustomerPerBeer(event).subscribe(
       data => {
-        console.log("Data:" ,data);
         const customer = [];
         const counts = [];
 
@@ -86,7 +84,9 @@ export class BeersComponent implements OnInit {
 
         data.forEach(bar => {
           hour.push(bar.Hour);
+          console.log("Hour :" ,bar.Hour);
           counts.push(bar.NumBought);
+          console.log("Num :" , bar.NumBought);
         });
         this.renderChartSaleDistribution(hour, counts, event);
       }
@@ -99,12 +99,12 @@ export class BeersComponent implements OnInit {
         type: 'column'
       },
       title: {
-        text: 'Time Distribution Of Sales Of: '+ event +'.'
+        text: 'Beers Purchased The Most By '+ event +'.'
       },
       xAxis: {
         categories: bars,
         title: {
-          text: 'Time'
+          text: 'Time (Military)'
         }
       },
       yAxis: {
@@ -138,7 +138,7 @@ export class BeersComponent implements OnInit {
         type: 'column'
       },
       title: {
-        text: 'Top Customers of: '+ event +'.'
+        text: 'Top Buyers of: '+ event +'.'
       },
       subtitle: {
         text: 'Top 10 Customers Who Buy '+ event +'.'
@@ -146,7 +146,7 @@ export class BeersComponent implements OnInit {
       xAxis: {
         categories: bars,
         title: {
-          text: 'Bar'
+          text: 'Customers'
         }
       },
       yAxis: {
@@ -180,7 +180,7 @@ export class BeersComponent implements OnInit {
         type: 'column'
       },
       title: {
-        text: 'Top Selling Bars That Sell: '+ event + '.'
+        text: 'Top Bars That Sell: '+ event + '.'
       },
       subtitle: {
         text: 'Top 10 Bars Who Sell '+event+ 'The Most'

@@ -15,18 +15,19 @@ import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics
 import { BartenderShiftsComponent } from './bartender-shifts/bartender-shifts.component';
 import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 import { ManfLikesComponent } from './manf-likes/manf-likes.component';
+import { ModificationComponent } from './modification/modification.component';
 
-
+//hi
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'static',
     pathMatch: 'full',
     redirectTo: 'bars'
-  },
-
+  },  
+  
   {
-    path: 'static',
+    path: '',
     pathMatch: 'full',
     redirectTo: 'bars'
   },
@@ -35,6 +36,11 @@ const routes: Routes = [
     path: 'bars',
     pathMatch: 'full',
     component: WelcomeComponent
+  },
+  {
+    path: 'modification',
+    pathMatch: 'full',
+    component: ModificationComponent
   },
   {
     path: 'bars/:bar',
