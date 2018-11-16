@@ -16,10 +16,9 @@ export interface Drinker {
 }
 
 export interface Items {
-  ID: string;
   type: string;
   Name: string;
-  price: string;
+  price: number;
 }
 
 @Injectable({

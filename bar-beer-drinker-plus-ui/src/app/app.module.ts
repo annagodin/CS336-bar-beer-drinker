@@ -22,6 +22,7 @@ import { BartenderComponent } from './bartender/bartender.component';
 import { BartenderBarsComponent } from './bartender-bars/bartender-bars.component';
 import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { ManufacturerDetailsComponent } from './manufacturer-details/manufacturer-details.component';
+import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ManufacturerDetailsComponent } from './manufacturer-details/manufacture
     BartenderComponent,
     BartenderBarsComponent,
     ManufacturerComponent,
-    ManufacturerDetailsComponent
+    ManufacturerDetailsComponent,
+    DrinkerAnalyticsComponent
   ],
   imports: [
     BrowserModule,

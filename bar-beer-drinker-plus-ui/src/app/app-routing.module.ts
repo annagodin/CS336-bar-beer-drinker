@@ -12,6 +12,7 @@ import { BartenderComponent } from './bartender/bartender.component';
 import { BartenderBarsComponent } from './bartender-bars/bartender-bars.component';
 import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { ManufacturerDetailsComponent } from './manufacturer-details/manufacturer-details.component';
+import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
 
 
 
@@ -21,6 +22,13 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'bars'
   },
+
+  {
+    path: 'static',
+    pathMatch: 'full',
+    redirectTo: 'bars'
+  },
+  
   {
     path: 'bars',
     pathMatch: 'full',
@@ -45,6 +53,11 @@ const routes: Routes = [
     path: 'drinker/:name/:id',
     pathMatch: 'full',
     component: ItemsPurchasedComponent
+  },
+  {
+    path: 'drinker/top-beers/:customer',
+    pathMatch: 'full',
+    component: DrinkerAnalyticsComponent
   },
   {
     path: 'beers',

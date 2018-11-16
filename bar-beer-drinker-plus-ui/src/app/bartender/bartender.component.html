@@ -1,7 +1,7 @@
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">Bartender</h1>
-      <p class="lead">This page can be used to view shifts of a bartender and how many beers they have sold</p>
+      <p class="lead">Select a bartender to view the bars they work at</p>
   </div>
 </div>
 
@@ -10,6 +10,7 @@
         <ng-template pTemplate="header">
             <tr>
               <th>Bartender</th>
+              <th>Bar</th>
             </tr>
            </ng-template>
            <ng-template pTemplate="caption">
@@ -24,6 +25,9 @@
               <a routerLink="/bartender/{{bartenders.Bartender}}">
                 {{ bartenders.Bartender }}
               </a>
+              </td>
+              <td>
+                {{bartenders.Bar}}
               </td>
             </tr>
         </ng-template>
