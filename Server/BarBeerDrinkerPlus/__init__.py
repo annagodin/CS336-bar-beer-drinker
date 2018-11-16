@@ -74,6 +74,13 @@ def get_manufacturers_making(beer):
     except Exception as e:
         return make_response(str(e), 500)
 
+@app.route("/api/manufacturer", methods=["GET"])
+def get_manufacturers():
+    try:
+        return jsonify(database.get_manufacturers())
+    except Exception as e:
+        return make_response(str(e), 500)
+
 
 
 @app.route("/api/likes", methods=["GET"])
@@ -243,6 +250,13 @@ def get_bartender_shifts(bartender,bar):
         if bartender is None:
             raise ValueError("Bartender is not specified")
         return jsonify(database.get_bartender_shifts(bartender,bar))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/bartender', methods =['GET'])
+def get_bartenders():
+    try:
+        return jsonify(database.get_bartenders())
     except Exception as e:
         return make_response(str(e), 500)
 

@@ -8,6 +8,10 @@ import { DrinkerTransactionsComponent } from './drinker-transactions/drinker-tra
 import { BeersComponent } from './beers/beers.component';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
+import { BartenderComponent } from './bartender/bartender.component';
+import { BartenderBarsComponent } from './bartender-bars/bartender-bars.component';
+import { ManufacturerComponent } from './manufacturer/manufacturer.component';
+import { ManufacturerDetailsComponent } from './manufacturer-details/manufacturer-details.component';
 
 
 
@@ -56,6 +60,26 @@ const routes: Routes = [
     path: 'insight',
     pathMatch: 'full',
     component: InsightComponent
+  },
+  {
+    path: 'bartender',
+    pathMatch: 'full',
+    component: BartenderComponent
+  },
+  {
+    path: 'bartender/:name',
+    pathMatch: 'full',
+    component: BartenderBarsComponent
+  },
+  {
+    path: 'manufacturer',
+    pathMatch: 'full',
+    component: ManufacturerComponent
+  },
+  {
+    path: 'manufacturer/:manf',
+    pathMatch: 'full',
+    component: ManufacturerDetailsComponent
   }
 ];
 

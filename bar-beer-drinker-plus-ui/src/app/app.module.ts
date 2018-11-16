@@ -18,6 +18,10 @@ import { BeersComponent } from './beers/beers.component';
 import { FormsModule } from '@angular/forms';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
+import { BartenderComponent } from './bartender/bartender.component';
+import { BartenderBarsComponent } from './bartender-bars/bartender-bars.component';
+import { ManufacturerComponent } from './manufacturer/manufacturer.component';
+import { ManufacturerDetailsComponent } from './manufacturer-details/manufacturer-details.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { ItemsPurchasedComponent } from './items-purchased/items-purchased.compo
     DrinkerTransactionsComponent,
     BeersComponent,
     InsightComponent,
-    ItemsPurchasedComponent
+    ItemsPurchasedComponent,
+    BartenderComponent,
+    BartenderBarsComponent,
+    ManufacturerComponent,
+    ManufacturerDetailsComponent
   ],
   imports: [
     BrowserModule,

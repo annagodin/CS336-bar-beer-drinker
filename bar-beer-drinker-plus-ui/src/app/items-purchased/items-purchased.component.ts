@@ -30,11 +30,11 @@ export class ItemsPurchasedComponent implements OnInit {
           );
         });
     });
-  }
-      
+  }    
     ngOnInit() {
     }
   }
+
 
 
 
