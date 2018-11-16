@@ -174,7 +174,7 @@ def get_top_beers_bought(customer_name):
 
 def get_total_spending_per_day(customer_name):
     with engine.connect() as con:
-        query=sql.text('SELECT t.Customer, t.Date, sum(TotalCost) as TotalSpent\
+        query=sql.text('SELECT t.Date, sum(TotalCost) as TotalSpent\
             FROM Transactions t\
             Where t.Customer = :name\
             Group by t.Customer, t.Date\

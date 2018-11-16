@@ -14,16 +14,18 @@ import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics
 
 const routes: Routes = [
   {
+    path: 'static',
+    pathMatch: 'full',
+    redirectTo: 'bars'
+  },  
+  
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'bars'
   },
 
-  {
-    path: 'static',
-    pathMatch: 'full',
-    redirectTo: 'bars'
-  },
+  
   
   {
     path: 'bars',
