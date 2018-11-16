@@ -10,7 +10,7 @@ import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
 import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
 
-
+//hi
 
 const routes: Routes = [
   {
@@ -24,8 +24,6 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'bars'
   },
-
-  
   
   {
     path: 'bars',
