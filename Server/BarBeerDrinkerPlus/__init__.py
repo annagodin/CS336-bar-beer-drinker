@@ -132,13 +132,11 @@ def get_customer_transactions(name):
         return make_response(str(e), 500)
 
 @app.route('/api/drinker/<name>/<id>', methods=['GET'])
-def get_items(name, id):
+def get_items(id, name):
     try:
-        if name is None:
-            raise ValueError("Customer is not specified.")
         if id is None:
-            raise ValueError("Id is not specified.")
-        return jsonify(database.get_items(name, id))
+            raise ValueError("ID is not specified.")
+        return jsonify(database.get_items(id,name))
     except Exception as e:
         return make_response(str(e), 500)
 
@@ -291,3 +289,40 @@ def get_bartender_analytics(bar,day,start,end):
         return jsonify(database.get_bartender_analytics(bar,day,start,end))
     except Exception as e:
         return make_response(str(e), 500) 
+
+@app.route('/api/inventory-distribution/<bar>', methods=['GET'])
+def get_inventory_sales_distribution(bar):
+    try:
+        if bar is None:
+            raise ValueError("Bar is not specified")
+        return jsonify(database.get_inventory_sales_distribution(bar))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+@app.route('/api/top-bars-daily-sales/<weekday>', methods=['GET'])
+def get_top_bars_per_weekday_sales(weekday):
+    try:
+        if weekday is None:
+            raise ValueError("Weekday not specidied")
+        return jsonify(database.get_top_bars_per_weekday_sales(weekday))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/top-cities/<manf>', methods=['GET'])
+def get_top_cities_per_manf(manf):
+    try:
+        if manf is None:
+            raise ValueError("Manf not specidied")
+        return jsonify(database.get_top_cities_per_manf(manf))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/top-cities-likes/<manf>', methods=['GET'])
+def get_top_cities_per_manf_likes(manf):
+    try:
+        if manf is None:
+            raise ValueError("Manf not specidied")
+        return jsonify(database.get_top_cities_per_manf_likes(manf))
+    except Exception as e:
+        return make_response(str(e), 500)

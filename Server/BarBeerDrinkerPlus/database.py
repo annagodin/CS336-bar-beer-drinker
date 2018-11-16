@@ -145,7 +145,7 @@ def get_customer_names():
         rs = con.execute(query)
         return [dict(row) for row in rs]
 
-def get_items(name, id):
+def get_items(id,name):
      with engine.connect() as con:
         query = sql.text('Select i.type, i.Name, i.price from BarBeerDrinkerPlus.ItemsByID i \
          where i.ID = :id; \
@@ -284,7 +284,7 @@ def get_top_customers_per_beer(beer):
 
 def get_beer_sales_distribution(beer):
     with engine.connect() as con:
-        query=sql.text(' Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour, count(*) as NumBought \
+        query=sql.text('Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour, count(*) as NumBought \
             From Transactions t, ItemsByID i \
             Where t.ID = i.ID AND \
             i.Name = :beer \
@@ -386,5 +386,77 @@ def get_bartender_analytics(bar,day,start,end):
             order by totalBeersSold \
         ')
         rs = con.execute(query, bar=bar, day=day, start=start, end=end)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_inventory_sales_distribution(bar):
+    with engine.connect() as con:
+        query = sql.text('Select t.Date, (count(*)/ \
+            ( \
+                Select sum(Amount) as Total_Inventory \
+                from Stores s \
+                Where Bar = :bar \
+                AND s.Day =t.Day \
+                group By day \
+                )*100 \
+                ) as percentOfInventory \
+            From Transactions t, ItemsByID i \
+            Where t.ID = i.ID \
+            And Bar = :bar \
+            And Type = "Beer" \
+            group by Date \
+            Order by STR_TO_DATE(Date, \'%m/%d/%y\') \
+        ')
+        rs = con.execute(query, bar=bar)
+        results =  [dict(row) for row in rs]
+        for i, _ in enumerate(results):
+            results[i]['percentOfInventory'] = float(results[i]['percentOfInventory'])
+        return results
+
+# this is a mouthful im sorry
+def get_top_bars_per_weekday_sales(weekday):
+    with engine.connect() as con:
+        query = sql.text('select t.Bar, count(*) as numSales from \
+            Transactions t, ItemsByID i \
+            Where t.ID=i.ID \
+            and t.Day = :weekday \
+            group by Bar \
+            Order by NumSales desc \
+            Limit 10 \
+        ')
+        rs = con.execute(query, weekday=weekday)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_top_cities_per_manf(manf):
+    with engine.connect() as con:
+        query = sql.text('select c.City , count(*) totalSales \
+            from Item i, Transactions t, ItemsByID id, Customers c \
+            where i.Type = "Beer" \
+            and t.ID = id.ID \
+            and id.Name = i.Name \
+            and c.Name = t.Customer \
+            and i.Manufacturer = :manf \
+            And STR_TO_DATE(t.Date, \'%m/%d/%y\') > STR_TO_DATE(\'9/7/2018\', \'%m/%d/%y\') \
+            Group by c.City \
+            Order by totalSales desc \
+            limit 10 \
+        ')
+        rs = con.execute(query, manf=manf)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_top_cities_per_manf_likes(manf):
+    with engine.connect() as con:
+        query = sql.text('select c.City, count(*) as numLikes \
+            from Item i, Likes l, Customers c \
+            where l.Beer = i.Name \
+            and i.Manufacturer = :manf \
+            and c.Name = l.Customer \
+            group by c.City \
+            order by numLikes desc \
+            limit 10 \
+        ')
+        rs = con.execute(query, manf=manf)
         results =  [dict(row) for row in rs]
         return results

@@ -18,6 +18,13 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'bars'
   },
+
+  {
+    path: 'static',
+    pathMatch: 'full',
+    redirectTo: 'bars'
+  },
+  
   {
     path: 'bars',
     pathMatch: 'full',
