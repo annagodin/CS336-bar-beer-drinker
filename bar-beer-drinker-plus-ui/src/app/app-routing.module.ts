@@ -9,6 +9,7 @@ import { BeersComponent } from './beers/beers.component';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
 import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
+import { ModificationComponent } from './modification/modification.component';
 
 
 
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'bars',
     pathMatch: 'full',
     component: WelcomeComponent
+  },
+  {
+    path: 'modification',
+    pathMatch: 'full',
+    component: ModificationComponent
   },
   {
     path: 'bars/:bar',

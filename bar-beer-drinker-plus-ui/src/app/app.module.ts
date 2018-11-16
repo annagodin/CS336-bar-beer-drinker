@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
 import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
+import { ModificationComponent } from './modification/modification.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics
     BeersComponent,
     InsightComponent,
     ItemsPurchasedComponent,
-    DrinkerAnalyticsComponent
+    DrinkerAnalyticsComponent,
+    ModificationComponent
   ],
   imports: [
     BrowserModule,
