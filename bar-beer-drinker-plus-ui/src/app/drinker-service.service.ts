@@ -21,6 +21,16 @@ export interface Items {
   price: number;
 }
 
+export interface BeerCount{
+  Name: string;
+  numBought: number;
+}
+
+export interface Spending{
+  Date: string;
+  TotalSpent: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,6 +50,14 @@ export class DrinkerServiceService {
 
    getItemsPurchased(id : string, customer: string) {
     return this.http.get<Items[]>('/api/drinker/' + customer + '/' + id );
+   }
+
+   getTopSellingBeer(customer: string){
+    return this.http.get<BeerCount[]>('api/top-beers/' + customer);
+   }
+
+   getSpendingPerDay(customer: string){
+    return this.http.get<Spending[]>('/api/total-spending-day/' + customer);
    }
 
 

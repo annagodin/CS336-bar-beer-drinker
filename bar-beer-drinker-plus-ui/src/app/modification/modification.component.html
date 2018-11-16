@@ -1,0 +1,25 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Modification Page</h1>
+    <p class="lead">This page can be used to modify our database. We allow insertions, deletions and updates into our table.
+      To get started select a database you would like to use and an action you would like to perform.
+    </p>
+  </div>
+</div>
+<br>
+
+
+  <div class="container">
+      <div>
+        <p-dropdown class="float-left text-left" *ngIf="databaseOptions" [options]="databaseOptions" (onChange)="setDatabase($event.value)"
+        [style]="{'width':'150%'}"></p-dropdown>
+      </div>
+    </div>
+
+    <div class="container">
+        <div>
+          <p-dropdown class="float-right text-left" *ngIf="modificationOptions" [options]="modificationOptions" (onChange)="setModification($event.value)" 
+          [style]="{'width':'150%'}"></p-dropdown>
+        </div>
+      </div>
+  

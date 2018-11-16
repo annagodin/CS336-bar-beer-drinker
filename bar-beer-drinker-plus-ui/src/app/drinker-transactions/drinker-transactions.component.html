@@ -2,13 +2,13 @@
   <div class="container">
     <h1 class="display-4">{{drinkerName}}</h1>
     <p class="lead">Transactions ordered by time and grouped by bar.</p>
-    <p class="lead"><a routerLink="/drinker/top-beers/{{ drinkerName }}">Data Analytics For Drinker {{drinkerName}}.</a></p>
+    <p class="lead">Scroll Down For Drinker Data Analytics</p>
 
   </div>
 </div>
 
 <div class="container">
-  <p-table [value]="transactions">
+  <p-table [value]="transactions" [paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
         <tr>
           <th>ID</th>
@@ -36,5 +36,16 @@
         </tr>
     </ng-template>
   </p-table>
+</div>
+
+
+<div class="container">
+  <br>
+  <div id="bargraph"></div>
+</div>
+
+<div class="container">
+  <br>
+  <div id="container"></div>
 </div>
 
