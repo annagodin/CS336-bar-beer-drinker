@@ -408,6 +408,7 @@ def get_bartender_analytics(bar,day,start,end):
             AND t.Day = b.Day \
             AND t.ID=i.ID \
             AND i.Type = "Beer" \
+            And b.bartender = t.bartender \
             AND ( \
                 ( \
                     HOUR(STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\'))<12 AND  \
@@ -423,7 +424,7 @@ def get_bartender_analytics(bar,day,start,end):
                 ) \
             ) \
             Group by b.Bartender \
-            order by totalBeersSold \
+            order by totalBeersSold desc \
         ')
         rs = con.execute(query, bar=bar, day=day, start=start, end=end)
         results =  [dict(row) for row in rs]
