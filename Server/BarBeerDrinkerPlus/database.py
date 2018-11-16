@@ -303,7 +303,7 @@ def get_beer_sales_distribution(beer):
         
 def get_bartender_shifts(bartender,bar):
     with engine.connect() as con:
-        query=sql.text('Select distinct t.Date, t.Day, b.ShiftStart, b.ShiftEnd \
+        query=sql.text('Select distinct b.ShiftStart, b.ShiftEnd, t.Date, t.Day \
             from Transactions t, Bartenders b \
             Where b.Bartender = :bartender \
             And b.Bar = :bar \

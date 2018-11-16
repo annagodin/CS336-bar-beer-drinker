@@ -1,7 +1,7 @@
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">Bartender</h1>
-      <p class="lead">Select a bartender to view the bars they work at</p>
+      <p class="lead">Select a bartender to view their shift details at the given bar </p>
   </div>
 </div>
 
@@ -16,13 +16,13 @@
            <ng-template pTemplate="caption">
               <div style="text-align: right">        
                   <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                  <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  <input type="text" pInputText size="50" placeholder="Search for bartender" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
               </div>
           </ng-template>
         <ng-template pTemplate="body" let-bartenders>
             <tr>
               <td>
-              <a routerLink="/bartender/{{bartenders.Bartender}}">
+              <a routerLink="/bartender/{{bartenders.Bartender}}/{{bartenders.Bar}}">
                 {{ bartenders.Bartender }}
               </a>
               </td>

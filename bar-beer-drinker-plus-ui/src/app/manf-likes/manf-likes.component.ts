@@ -4,13 +4,13 @@ import { ManufacturerService } from '../manufacturer.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-manufacturer-details',
-  templateUrl: './manufacturer-details.component.html',
-  styleUrls: ['./manufacturer-details.component.css']
+  selector: 'app-manf-likes',
+  templateUrl: './manf-likes.component.html',
+  styleUrls: ['./manf-likes.component.css']
 })
-export class ManufacturerDetailsComponent implements OnInit {
+export class ManfLikesComponent implements OnInit {
 
-  sales : ManfDetails[]
+ likes : ManfDetails[]
   manf : string
 
   constructor(private manfService: ManufacturerService, private route: ActivatedRoute) { 
@@ -18,9 +18,9 @@ export class ManufacturerDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap) => {
     this.manf = paramMap.get('manf');
 
-    this.manfService.getManfSales(this.manf).subscribe(
+    this.manfService.getManfLikes(this.manf).subscribe(
       data => {
-        this.sales = data;
+        this.likes = data;
       }
     );
   });
@@ -31,4 +31,3 @@ export class ManufacturerDetailsComponent implements OnInit {
   }
 
 }
-

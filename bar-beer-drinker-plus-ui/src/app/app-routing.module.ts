@@ -9,10 +9,12 @@ import { BeersComponent } from './beers/beers.component';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
 import { BartenderComponent } from './bartender/bartender.component';
-import { BartenderBarsComponent } from './bartender-bars/bartender-bars.component';
 import { ManufacturerComponent } from './manufacturer/manufacturer.component';
 import { ManufacturerDetailsComponent } from './manufacturer-details/manufacturer-details.component';
 import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
+import { BartenderShiftsComponent } from './bartender-shifts/bartender-shifts.component';
+import { ShiftDetailsComponent } from './shift-details/shift-details.component';
+import { ManfLikesComponent } from './manf-likes/manf-likes.component';
 
 
 
@@ -80,9 +82,9 @@ const routes: Routes = [
     component: BartenderComponent
   },
   {
-    path: 'bartender/:name',
+    path: 'bartender/:name/:bar',
     pathMatch: 'full',
-    component: BartenderBarsComponent
+    component: BartenderShiftsComponent
   },
   {
     path: 'manufacturer',
@@ -93,9 +95,18 @@ const routes: Routes = [
     path: 'manufacturer/:manf',
     pathMatch: 'full',
     component: ManufacturerDetailsComponent
+  },
+  {
+    path: 'bartender/:bartender/:bar/:date',
+    pathMatch: 'full',
+    component: ShiftDetailsComponent
+  },
+  {
+    path: 'manufacturer/:manf/likes',
+    pathMatch: 'full',
+    component: ManfLikesComponent
   }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

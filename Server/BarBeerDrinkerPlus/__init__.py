@@ -240,14 +240,14 @@ def get_beer_sales_distribution(beer):
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/bartender-shifts/<bar>/<bartender>', methods =['GET'])
-def get_bartender_shifts(bartender,bar):
+@app.route('/api/bartender/<name>/<bar>', methods =['GET'])
+def get_bartender_shifts(name,bar):
     try:
         if bar is None:
             raise ValueError("Bar is not specified")
-        if bartender is None:
+        if name is None:
             raise ValueError("Bartender is not specified")
-        return jsonify(database.get_bartender_shifts(bartender,bar))
+        return jsonify(database.get_bartender_shifts(name,bar))
     except Exception as e:
         return make_response(str(e), 500)
 
@@ -324,16 +324,16 @@ def get_top_bars_per_weekday_sales(weekday):
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/top-cities/<manf>', methods=['GET'])
+@app.route('/api/manufacturer/<manf>', methods=['GET'])
 def get_top_cities_per_manf(manf):
     try:
         if manf is None:
-            raise ValueError("Manf not specidied")
+            raise ValueError("Manf not specified")
         return jsonify(database.get_top_cities_per_manf(manf))
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/top-cities-likes/<manf>', methods=['GET'])
+@app.route('/api/manufacturer/<manf>/likes', methods=['GET'])
 def get_top_cities_per_manf_likes(manf):
     try:
         if manf is None:
