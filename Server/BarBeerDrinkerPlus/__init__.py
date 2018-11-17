@@ -191,12 +191,14 @@ def get_top_spenders_per_bar(bar):
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/top-beers-bar/<bar>', methods=['GET'])
-def get_top_beers_per_bar(bar):
+@app.route('/api/top-beers-bar/<bar>/<weekday>', methods=['GET'])
+def get_top_beers_per_bar(bar,weekday):
     try:
         if bar is None:
             raise ValueError("Bar is not specified")
-        return jsonify(database.get_top_beers_per_bar(bar))
+        if weekday is None:
+            raise ValueError("Weekday is not specified")
+        return jsonify(database.get_top_beers_per_bar(bar,weekday))
     except Exception as e:
         return make_response(str(e), 500)
 
@@ -208,6 +210,15 @@ def get_hourly_sale_distribution(bar,day):
         if day is None:
             raise ValueError("Day is not specified")
         return jsonify(database.get_hourly_sale_distribution(bar,day))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/busiest-days/<bar>/', methods=['GET'])
+def get_daily_sale_distribution(bar):
+    try:
+        if bar is None:
+             raise ValueError("Bar is not specified")
+        return jsonify(database.get_daily_sale_distribution(bar))
     except Exception as e:
         return make_response(str(e), 500)
 
