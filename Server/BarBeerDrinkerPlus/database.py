@@ -104,6 +104,11 @@ def get_beer_manufacturers(beer):
             return None
         return result['Manufacturer']
 
+def get_manufacturers():
+    with engine.connect() as con:
+        rs = con.execute('select distinct Manufacturer from Item where Manufacturer <> "''" ;')
+        return [dict(row) for row in rs]
+
 def get_customers():
     with engine.connect() as con:
         rs = con.execute('SELECT Name, City, Phone FROM Customers;')
@@ -298,13 +303,20 @@ def get_beer_sales_distribution(beer):
         
 def get_bartender_shifts(bartender,bar):
     with engine.connect() as con:
-        query=sql.text('Select distinct t.Date, t.Day, b.ShiftStart, b.ShiftEnd \
+        query=sql.text('Select distinct b.ShiftStart, b.ShiftEnd, t.Date, t.Day \
             from Transactions t, Bartenders b \
             Where b.Bartender = :bartender \
             And b.Bar = :bar \
             and t.Day = b.Day \
         ')
         rs = con.execute(query, bartender=bartender, bar=bar)
+        results =  [dict(row) for row in rs]
+        return results
+
+def get_bartenders():
+    with engine.connect() as con:
+        query=sql.text('select distinct Bartender, Bar from Bartenders')
+        rs = con.execute(query)
         results =  [dict(row) for row in rs]
         return results
 

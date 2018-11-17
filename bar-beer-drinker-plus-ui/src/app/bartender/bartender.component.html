@@ -1,0 +1,35 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Bartender</h1>
+      <p class="lead">Select a bartender to view their shift details at the given bar </p>
+  </div>
+</div>
+
+  <div class="container">
+     <p-table #dt [value]="bartenders" [paginator]="true" [rows]="20" [globalFilterFields]="['Bartender']">
+        <ng-template pTemplate="header">
+            <tr>
+              <th>Bartender</th>
+              <th>Bar</th>
+            </tr>
+           </ng-template>
+           <ng-template pTemplate="caption">
+              <div style="text-align: right">        
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="50" placeholder="Search for bartender" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>
+          </ng-template>
+        <ng-template pTemplate="body" let-bartenders>
+            <tr>
+              <td>
+              <a routerLink="/bartender/{{bartenders.Bartender}}/{{bartenders.Bar}}">
+                {{ bartenders.Bartender }}
+              </a>
+              </td>
+              <td>
+                {{bartenders.Bar}}
+              </td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>

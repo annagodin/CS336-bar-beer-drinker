@@ -18,7 +18,13 @@ import { BeersComponent } from './beers/beers.component';
 import { FormsModule } from '@angular/forms';
 import { InsightComponent } from './insight/insight.component';
 import { ItemsPurchasedComponent } from './items-purchased/items-purchased.component';
+import { BartenderComponent } from './bartender/bartender.component';
+import { ManufacturerComponent } from './manufacturer/manufacturer.component';
+import { ManufacturerDetailsComponent } from './manufacturer-details/manufacturer-details.component';
 import { DrinkerAnalyticsComponent } from './drinker-analytics/drinker-analytics.component';
+import { BartenderShiftsComponent } from './bartender-shifts/bartender-shifts.component';
+import { ShiftDetailsComponent } from './shift-details/shift-details.component';
+import { ManfLikesComponent } from './manf-likes/manf-likes.component';
 import { ModificationComponent } from './modification/modification.component';
 
 @NgModule({
@@ -32,7 +38,13 @@ import { ModificationComponent } from './modification/modification.component';
     BeersComponent,
     InsightComponent,
     ItemsPurchasedComponent,
+    BartenderComponent,
+    ManufacturerComponent,
+    ManufacturerDetailsComponent,
     DrinkerAnalyticsComponent,
+    BartenderShiftsComponent,
+    ShiftDetailsComponent,
+    ManfLikesComponent,
     ModificationComponent
   ],
   imports: [
