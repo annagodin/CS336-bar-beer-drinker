@@ -48,8 +48,8 @@ export class BarsService {
     return this.http.get<any[]>('/api/frequents-data');
   }
 
-  getTopBrands(day : string) {
-    return this.http.get<any[]>(`/api/top-beers-bar/${day}`);
+  getTopBrandsPerDay(day : string, bar : string) {
+    return this.http.get<any[]>('/api/top-beers-bar/' + bar + '/' + day);
   }
 
   getTopSpendersPerBar(bar : string) {
@@ -64,6 +64,8 @@ export class BarsService {
     return this.http.get<any[]>('/api/busiest-hours/' + bar + '/' + day);
   }
 
-
+  getDistributionDay(bar : string) {
+    return this.http.get<any[]>('/api/busiest-days/' + bar);
+  }
 
 }

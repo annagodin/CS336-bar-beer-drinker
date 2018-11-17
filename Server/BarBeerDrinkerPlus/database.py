@@ -251,6 +251,10 @@ def get_hourly_sale_distribution(bar,day):
         results =  [dict(row) for row in rs]
         # for i, _ in enumerate(results):
         #     results[i]['percentPerHour'] = float(results[i]['percentPerHour'])
+        for x in results:
+            temp = str(x['Hour'])
+            temp += ":00"
+            x['Hour']=temp
         return results
 
 def get_daily_sale_distribution(bar):

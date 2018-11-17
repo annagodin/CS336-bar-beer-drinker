@@ -102,6 +102,19 @@ export class BarDetailsComponent implements OnInit {
           this.renderChartInventorySold(date, percentage, this.barName);
         });
 
+        this.barService.getDistributionDay(this.barName).subscribe(
+          data => {
+            console.log("data for day distribution: ", data);
+            const day = [];
+            const sales = [];
+        
+            data.forEach(bar => {
+              day.push(bar.Day);
+              sales.push(bar.totalSalesPerWeekday);
+            });
+            this.renderChartDistributionDay(day, sales, this.barName);
+          });
+
       this.setPopulateForDay('Sunday');
   }
 
@@ -112,28 +125,27 @@ export class BarDetailsComponent implements OnInit {
   setPopulateForDay(day : string){
     console.log("day of the week selected is: ", day);
     
-    this.barService.getTopBrands(day).subscribe(
+    this.barService.getTopBrandsPerDay(day, this.barName).subscribe(
       data => {
-        //console.log("data is: ", data);
-        const customer = [];
+        const name = [];
         const counts = [];
     
         data.forEach(bar => {
-          customer.push(bar.Customer);
-          counts.push(bar.TotalSpent);
+          name.push(bar.Name);
+          counts.push(bar.numBought);
         });
-        this.renderChartTopBrands(customer, counts, day);
+        this.renderChartTopBrands(name, counts, day);
       });
 
       this.barService.getDistributionTime(this.barName, day).subscribe(
         data => {
-          console.log("data is: ", data);
+          console.log("data for time is: ", data);
           const date = [];
           const percentage = [];
       
           data.forEach(bar => {
-            date.push(bar.Date);
-            percentage.push(bar.percentOfInventory);
+            date.push(bar.Hour);
+            percentage.push(bar.numSales);
           });
           this.renderChartDistributionTime(date, percentage, day );
         });
@@ -158,7 +170,7 @@ export class BarDetailsComponent implements OnInit {
       allowDecimals: true,
       min: 0,
       title: {
-        text: 'Percentage Sold'
+        text: 'Number of Sales'
       },
       labels: {
         overflow: 'justify'
@@ -280,7 +292,7 @@ export class BarDetailsComponent implements OnInit {
     xAxis: {
       categories: bars,
       title: {
-        text: 'Beer'
+        text: 'Beer Brands'
       }
     },
     yAxis: {
