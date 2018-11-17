@@ -383,3 +383,18 @@ def verify_beer_prices():
         return jsonify(database.verify_beer_prices())
     except Exception as e:
         return make_response(str(e), 500)
+
+
+@app.route('/api/verify-inventory/', methods=['GET'])
+def verify_inventory():
+    try:
+        return jsonify(database.verify_inventory())
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/verify-bartender/', methods=['GET'])
+def verify_bartender_shifts():
+    try:
+        return jsonify(database.verify_bartender_shifts())
+    except Exception as e:
+        return make_response(str(e), 500)

@@ -559,6 +559,18 @@ def verify_inventory():
         return results
 
 
+def verify_bartender_shifts():
+      with engine.connect() as con:
+        query=sql.text(' select not exists(select b1.Bartender\
+            from Bartenders b1\
+            group by b1.Bartender, b1.Day \
+            having count(b1.Day) > 1)\
+            as Verify_Bartender_Shift_Constraint;\
+        ')
+        rs = con.execute(query)
+        results =  [dict(row) for row in rs]
+        return results
+
 
 # DEAD BUT I DONT WANNA DELETE IT
 # Select i.Name as Beer, count(*) as numSold  \
