@@ -29,7 +29,7 @@ export class BartenderSalesComponent implements OnInit {
         this.route.paramMap.subscribe((paramMap) => {
           this.date = paramMap.get('date');
           this.date = this.convertDate(this.date);
-
+          
           this.route.paramMap.subscribe((paramMap) => {
             this.start = paramMap.get('start');
 
@@ -49,8 +49,9 @@ export class BartenderSalesComponent implements OnInit {
 }
 
 convertDate(temp : string) {
-    temp = temp.replace(/-/g, "\/");
+    temp.replace(/-/g, "\/");
   return temp;
+
 }
 
 
