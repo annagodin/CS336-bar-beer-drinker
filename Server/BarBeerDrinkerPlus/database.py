@@ -308,6 +308,7 @@ def get_bartender_shifts(bartender,bar):
             Where b.Bartender = :bartender \
             And b.Bar = :bar \
             and t.Day = b.Day \
+            order by STR_TO_DATE(t.Date, \'%m/%d/%y\'); \
         ')
         rs = con.execute(query, bartender=bartender, bar=bar)
         results =  [dict(row) for row in rs]
