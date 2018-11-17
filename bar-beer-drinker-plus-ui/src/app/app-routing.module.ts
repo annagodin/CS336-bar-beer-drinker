@@ -17,8 +17,9 @@ import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 import { ManfLikesComponent } from './manf-likes/manf-likes.component';
 import { ModificationComponent } from './modification/modification.component';
 import { BartenderSalesComponent } from './bartender-sales/bartender-sales.component';
+import { BartenderAnalyticsComponent } from './bartender-analytics/bartender-analytics.component';
 
-//hi
+//bye
 
 const routes: Routes = [
   {
@@ -117,6 +118,11 @@ const routes: Routes = [
     path: 'bartender/:bartender/:bar/:date/:start/:end',
     pathMatch: 'full',
     component: BartenderSalesComponent
+  },
+  {
+    path: 'bartender/analytics/',
+    pathMatch: 'full',
+    component: BartenderAnalyticsComponent
   }
 ];
 

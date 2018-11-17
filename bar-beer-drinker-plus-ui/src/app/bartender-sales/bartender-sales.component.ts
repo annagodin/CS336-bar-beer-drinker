@@ -49,7 +49,7 @@ export class BartenderSalesComponent implements OnInit {
 }
 
 convertDate(temp : string) {
-    temp = temp.replace(/-/g, "\/");
+   temp.replace(/-/g, "\/");
   return temp;
 }
 
