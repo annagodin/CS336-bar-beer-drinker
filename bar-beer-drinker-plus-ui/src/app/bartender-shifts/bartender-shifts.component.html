@@ -18,9 +18,9 @@
   <ng-template pTemplate="body" let-shifts>
       <tr>
         <td> 
-          <a routerLink="/bartender/{{bartender}}/{{bar}}/{{shifts.Date}}">
+          <a routerLink="/bartender/{{bartender}}/{{bar}}/{{shifts.Date}}/{{shifts.ShiftStart}}/{{shifts.ShiftEnd}}">
           {{ shifts.Date }}
-          </a> 
+          </a>
        </td>
         <td> {{shifts.Day}} </td>
         <td> {{shifts.ShiftStart}}</td>

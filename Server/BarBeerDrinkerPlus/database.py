@@ -350,13 +350,14 @@ def get_top_beers_sold(bartender):
         results =  [dict(row) for row in rs]
         return results
 
-def get_bartender_sales_per_shift(bartender, bar, day, start, end):
+def get_bartender_sales_per_shift(bartender, bar, date, start, end):
     with engine.connect() as con:
         query=sql.text('Select i.Name as Beer, count(*) as numSold  \
             FROM Transactions t, Bartenders b, ItemsByID i, ShiftHours s \
             WHERE s.Bar = :bar \
             AND b.bartender = :bartender \
-			AND s.Day =  :day \
+			AND s.Day =  t.day \
+            AND t.Date = :date \
 			AND s.Open = :start \
 			AND s.Close = :end \
             AND b.ShiftStart = s.Open  \
@@ -386,7 +387,7 @@ def get_bartender_sales_per_shift(bartender, bar, day, start, end):
             Group by beer \
             order by numSold desc \
         ')
-        rs = con.execute(query, bartender=bartender, bar=bar, day=day, start=start, end=end)
+        rs = con.execute(query, bartender=bartender, bar=bar, date=date, start=start, end=end)
         results =  [dict(row) for row in rs]
         return results
 

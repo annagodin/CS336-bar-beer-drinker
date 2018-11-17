@@ -26,6 +26,7 @@ import { BartenderShiftsComponent } from './bartender-shifts/bartender-shifts.co
 import { ShiftDetailsComponent } from './shift-details/shift-details.component';
 import { ManfLikesComponent } from './manf-likes/manf-likes.component';
 import { ModificationComponent } from './modification/modification.component';
+import { BartenderSalesComponent } from './bartender-sales/bartender-sales.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ModificationComponent } from './modification/modification.component';
     BartenderShiftsComponent,
     ShiftDetailsComponent,
     ManfLikesComponent,
-    ModificationComponent
+    ModificationComponent,
+    BartenderSalesComponent
   ],
   imports: [
     BrowserModule,
