@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export interface Bar {
-  Bar: string;
-  City: string;
-  License: string;
-  Phone: string;
+  name: string;
+  license: string;
+  city: string;
+  phone: string;
+  addr: string;
 }
 
 export interface BarMenuItem {
@@ -17,18 +18,23 @@ export interface BarMenuItem {
   likes: number;
 }
 
+export interface Spender{
+  Customer: string;
+  count: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class BarsService {
 
   constructor(
-    public httpClient: HttpClient
-    ) { }
+    public http: HttpClient
+  ) { }
 
-    getBars(){
-      return this.httpClient.get<Bar[]>('/api/bar');
-    }
+  getBars() {
+    return this.http.get<Bar[]>('/api/bar');
+  }
 
   getBar(bar: string) {
     return this.http.get<Bar>('/api/bar/' + bar);
@@ -41,4 +47,23 @@ export class BarsService {
   getFrequentCounts() {
     return this.http.get<any[]>('/api/frequents-data');
   }
+
+  getTopBrands(day : string) {
+    return this.http.get<any[]>(`/api/top-beers-bar/${day}`);
+  }
+
+  getTopSpendersPerBar(bar : string) {
+    return this.http.get<any[]>(`api/top-spenders/${bar}`);
+  }
+
+  getInventorySold(bar : string) {
+    return this.http.get<any[]>(`/api/inventory-distribution/${bar}`);
+  }
+
+  getDistributionTime(bar : string, day : string) {
+    return this.http.get<any[]>('/api/busiest-hours/' + bar + '/' + day);
+  }
+
+
+
 }

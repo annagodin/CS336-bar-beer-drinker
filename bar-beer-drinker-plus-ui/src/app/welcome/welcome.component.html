@@ -7,7 +7,7 @@
   
   <div class="container">
   
-    <p-table [value]="bars">
+    <p-table [value]="bars" [paginator]="true" [rows]="15">
       <ng-template pTemplate="header">
           <tr>
             <th>Name</th>

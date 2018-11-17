@@ -9,10 +9,14 @@
     </div>
 </div>
 
+<p class="text-lg-center">Scroll Down For Data On Bar: {{ barName }}.</p>
+
+
 <div class="container">
+    <div class="row">
     <h2 class="text-center font-weight-light">Bar Menu</h2>
     <br>
-    <p-table [value]="menu">
+    <p-table [value]="menu" [paginator]="true" [rows]="10">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -32,4 +36,54 @@
             </tr>
         </ng-template>
     </p-table>
+</div>
+</div>
+
+<br>
+
+<div class="container">
+<div class="row justify-content-center" >
+<p class="text-monospace">Select day of the week to load which beers were most sold on that day</p>
+</div>
+</div>
+
+<div class="container">
+<div class="row justify-content-center" >
+    <div>
+          <p-dropdown class="float-right text-center" *ngIf="daysOfTheWeek" [options]="daysOfTheWeek" (onChange)="setPopulateForDay($event.value)" ></p-dropdown>
+    </div>
+</div>
+</div>
+<br>
+
+<div class="container">
+        <div class="row justify-content-center" >
+                <div id="topBrands"></div>
+        </div>
+    </div>
+
+<div class="container">
+    <div class="row row align-items-center" >
+            <div class="col">
+                            <br>
+                            <div id="topSpender"></div>
+            </div>
+            <div class="col">
+                            <br>
+                            <div id="inventorySold"></div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                    <br>
+                    <div id="distributionDay"></div>
+            </div>
+            <div class="col">
+                    <br>
+                    <div id="distributionTime"></div>
+            </div>
+    </div>
+</div>
+
+<div class="container">
+<h4 class="" id="analytics">Bar Analytics</h4>
 </div>

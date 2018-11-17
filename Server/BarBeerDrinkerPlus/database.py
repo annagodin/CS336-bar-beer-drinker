@@ -212,6 +212,7 @@ def get_top_spenders_per_bar(bar_name):
             Where t.Bar = :bar \
             Group by t.Customer \
             order by TotalSpent desc \
+            limit 10 \
         ')
         rs = con.execute(query, bar = bar_name)
         results =  [dict(row) for row in rs]
