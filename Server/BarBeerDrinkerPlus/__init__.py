@@ -307,7 +307,14 @@ def get_shifts_per_day(bar,day):
     except Exception as e:
         return make_response(str(e), 500)   
 
-@app.route('/api/bartender-analytics/<bar>/<day>/<start>/<end>', methods=['GET'])
+@app.route('/api/bartender/analytics', methods=['GET'])
+def get_all_shifts():
+    try:
+        return jsonify(database.get_all_shifts())
+    except Exception as e:
+        return make_response(str(e), 500) 
+
+@app.route('/api/bartender/analytics/<bar>/<day>/<start>/<end>', methods=['GET'])
 def get_bartender_analytics(bar,day,start,end):
     try:
         if bar is None:

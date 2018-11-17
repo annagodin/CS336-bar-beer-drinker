@@ -2,7 +2,6 @@
     <div class="container">
       <h1 class="display-4">{{bartender}} at {{bar}}</h1>
       <p class="lead">Select a shift to view the number and amount of beers sold</p>
-
     </div>
   </div>
   
@@ -17,7 +16,7 @@
     <ng-template pTemplate="body" let-beers_sold>
         <tr>
           <td> {{beers_sold.Beer}} </td>
-          <td> {{beers_sold.NumSold}}</td>
+          <td> {{beers_sold.numSold}}</td>
         </tr>
     </ng-template>
   </p-table>

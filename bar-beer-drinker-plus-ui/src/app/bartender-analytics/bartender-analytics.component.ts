@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Analytics, BartenderAnalyticsService } from '../bartender-analytics.service';
 
 @Component({
   selector: 'app-bartender-analytics',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BartenderAnalyticsComponent implements OnInit {
 
-  constructor() { }
+  shifts : Analytics[]
+
+  constructor(private analytics: BartenderAnalyticsService) {
+  
+    this.analytics.getShifts().subscribe(
+       data => {
+          this.shifts = data;
+          }
+        );
+ }
 
   ngOnInit() {
   }

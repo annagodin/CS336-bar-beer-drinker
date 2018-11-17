@@ -28,6 +28,7 @@ import { ManfLikesComponent } from './manf-likes/manf-likes.component';
 import { ModificationComponent } from './modification/modification.component';
 import { BartenderSalesComponent } from './bartender-sales/bartender-sales.component';
 import { BartenderAnalyticsComponent } from './bartender-analytics/bartender-analytics.component';
+import { BartenderRankingComponent } from './bartender-ranking/bartender-ranking.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { BartenderAnalyticsComponent } from './bartender-analytics/bartender-ana
     ManfLikesComponent,
     ModificationComponent,
     BartenderSalesComponent,
-    BartenderAnalyticsComponent
+    BartenderAnalyticsComponent,
+    BartenderRankingComponent
   ],
   imports: [
     BrowserModule,

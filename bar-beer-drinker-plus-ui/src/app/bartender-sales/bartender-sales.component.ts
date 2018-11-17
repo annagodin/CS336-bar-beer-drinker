@@ -19,7 +19,7 @@ export class BartenderSalesComponent implements OnInit {
    constructor(
    private bartenderService: BartenderService,
    private route: ActivatedRoute) {
- 
+     
      this.route.paramMap.subscribe((paramMap) => {
        this.bartender = paramMap.get('bartender');
 
@@ -29,7 +29,7 @@ export class BartenderSalesComponent implements OnInit {
         this.route.paramMap.subscribe((paramMap) => {
           this.date = paramMap.get('date');
           this.date = this.convertDate(this.date);
-
+          
           this.route.paramMap.subscribe((paramMap) => {
             this.start = paramMap.get('start');
 
@@ -49,8 +49,9 @@ export class BartenderSalesComponent implements OnInit {
 }
 
 convertDate(temp : string) {
-   temp.replace(/-/g, "\/");
+    temp.replace(/-/g, "\/");
   return temp;
+
 }
 
 

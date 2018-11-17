@@ -39,6 +39,7 @@ export class BartenderService {
    }
 
    getSales(bartender : string, bar: string, date : string, start : string, end : string) {
+    //  console.log(date);
      return this.http.get<SaleDetails[]>('/api/bartender/' + bartender + '/' + bar + '/' + date + '/' + start + '/' + end);
    }
 

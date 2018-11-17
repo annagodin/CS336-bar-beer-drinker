@@ -385,6 +385,13 @@ def get_shifts_per_day(bar,day):
         results =  [dict(row) for row in rs]
         return results
 
+def get_all_shifts():
+    with engine.connect() as con:
+        query = sql.text('SELECT Bar, Day, Open, Close from ShiftHours;')
+        rs = con.execute(query)
+        results =  [dict(row) for row in rs]
+        return results
+
 def get_bartender_analytics(bar,day,start,end):
     with engine.connect() as con:
         query = sql.text('Select b.Bartender, count(*) as totalBeersSold  \
