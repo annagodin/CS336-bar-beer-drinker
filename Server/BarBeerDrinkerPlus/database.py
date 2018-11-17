@@ -246,7 +246,7 @@ def get_hourly_sale_distribution(bar_name,weekday):
                     Where t.Bar = :bar \
                     AND t.Day = :day \
                     GROUP BY HOUR(STR_TO_DATE(Time,\'%h:%i %p\')) \
-                    ) f \
+                    ) \
                 ) as percentPerHour \
             From Transactions t \
             Where t.Bar = :bar \
@@ -295,10 +295,14 @@ def get_beer_sales_distribution(beer):
             i.Name = :beer \
             Group by Hour \
             order by Hour \
-            limit 10 \
         ')
         rs = con.execute(query, beer = beer)
         results =  [dict(row) for row in rs]
+        for x in results:
+            temp = str(x['Hour'])
+            temp += ":00"
+            x['Hour']=temp
+    
         return results
         
 def get_bartender_shifts(bartender,bar):

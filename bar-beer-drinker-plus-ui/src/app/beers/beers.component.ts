@@ -99,12 +99,15 @@ export class BeersComponent implements OnInit {
         type: 'column'
       },
       title: {
-        text: 'Beers Purchased The Most By '+ event +'.'
+        text: 'Hourly Distribution of Sales of '+ event
+      },
+      subtitle: {
+        text: 'Hours when ' + event + ' is most popular'
       },
       xAxis: {
         categories: bars,
         title: {
-          text: 'Time (Military)'
+          text: 'Time (24hr)'
         }
       },
       yAxis: {
@@ -141,7 +144,7 @@ export class BeersComponent implements OnInit {
         text: 'Top Buyers of: '+ event +'.'
       },
       subtitle: {
-        text: 'Top 10 Customers Who Buy '+ event +'.'
+        text: 'Top 10 Customers Who Buy '+ event
       },
       xAxis: {
         categories: bars,
