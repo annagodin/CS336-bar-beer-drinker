@@ -353,39 +353,19 @@ def get_top_beers_sold(bartender):
 def get_bartender_sales_per_shift(bartender, bar, date, start, end):
     with engine.connect() as con:
         query=sql.text('Select i.Name as Beer, count(*) as numSold  \
-            FROM Transactions t, Bartenders b, ItemsByID i, ShiftHours s \
-            WHERE s.Bar = :bar \
+            FROM Transactions t, Bartenders b, ItemsByID i \
+            WHERE t.Bar = :bar  \
             AND b.bartender = :bartender \
-			AND s.Day =  t.day \
             AND t.Date = :date \
-			AND s.Open = :start \
-			AND s.Close = :end \
-            AND b.ShiftStart = s.Open  \
-            AND b.ShiftEnd = s.Close  \
-            And b.Bar = s.Bar  \
-            AND b.Day = s.Day \
-            AND b.Bar = t.Bar \
-            AND t.Day = b.Day \
-            AND t.ID=i.ID \
+            AND b.ShiftStart = :start\
+            AND b.ShiftEnd = :end  \
+            AND b.Bar = t.Bar  \
+            AND t.Day = b.Day  \
+            AND t.ID=i.ID  \
             AND i.Type = "Beer" \
-            AND t.Bartender = b.Bartender \
-            AND (  \
-                (  \
-                    HOUR(STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\'))<12 AND  \
-                    ( \
-                        ( HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= HOUR(STR_TO_DATE(b.ShiftStart,\'%h:%i %p\')) ) \
-                            OR \
-                        (HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= 0 AND STR_TO_DATE(t.Time,\'%h:%i %p\')<=STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
-                    )  \
-                ) \
-                OR \
-                ( \
-                    (STR_TO_DATE(t.Time,\'%h:%i %p\') >= STR_TO_DATE(b.ShiftStart,\'%h:%i %p\') AND \
-                    STR_TO_DATE(t.Time,\'%h:%i %p\') <= STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
-                ) \
-            ) \
-            Group by beer \
-            order by numSold desc \
+            AND t.Bartender = b.Bartender  \
+            Group by Beer  \
+            order by numSold desc\
         ')
         rs = con.execute(query, bartender=bartender, bar=bar, date=date, start=start, end=end)
         results =  [dict(row) for row in rs]
@@ -514,3 +494,104 @@ def get_top_cities_per_manf_likes(manf):
         rs = con.execute(query, manf=manf)
         results =  [dict(row) for row in rs]
         return results
+
+#--------------------------------------------------------------------------------
+# VERIFICATION QUERIES
+#--------------------------------------------------------------------------------
+
+def verify_transaction_hours():
+    with engine.connect() as con:
+        query=sql.text('Select NOT EXISTS(select * from Transactions t, OpenHours o \
+            where \
+            o.Bar=t.bar \
+            and o.day=t.day  \
+            and STR_TO_DATE(t.time,\'%h%p\') not between (STR_TO_DATE(o.open,\'%h%p\')) and STR_TO_DATE(o.close,\'%h%p\')) \
+            as Transaction_Hours_Verification; \
+        ')
+        rs = con.execute(query)
+        results =  [dict(row) for row in rs]
+        return results
+
+def verify_customer_residency():
+    with engine.connect() as con:
+        query=sql.text(' Select NOT EXISTS (Select distinct f.Name, b.Bar from Frequents f, Customers c, Bars b \
+            where f.Name = c.name\
+            and f.bar = b.bar\
+            and c.city <> b.city)\
+            as Verify_Customer_Residency;\
+        ')
+        rs = con.execute(query)
+        results =  [dict(row) for row in rs]
+        return results
+
+def verify_beer_prices():
+    with engine.connect() as con:
+        query=sql.text('select not exists(select b1.Name, b2.Name from MasterSells b1, MasterSells b2, MasterSells b3, MasterSells b4\
+            where b1.Type = "Beer" \
+            and b1.type = b2.type \
+            and b2.type = b3.type \
+            and b3.type = b4.type \
+            and (b1.price > b2.price and b1.bar = b2.bar) \
+            and (b2.price > b1.price and b3.bar = b4.bar) \
+            and b1.bar <> b3.bar) \
+            as Verify_Beer_Price_Constraint; \
+        ')
+        rs = con.execute(query)
+        results =  [dict(row) for row in rs]
+        return results
+
+def verify_inventory():
+      with engine.connect() as con:
+        query=sql.text('select not exists ( \
+            select i.Name, s.Amount, count(*) as beerCount from Transactions t, ItemsByID i, Stores s \
+            where t.ID = i.ID \
+            and t.day = s.day \
+            and i.Name = s.Beer \
+            and t.Bar = s.Bar \
+            and i.Type = "Beer" \
+            group by i.Name, s.Amount \
+            having beerCount > s.Amount \
+            ) \
+            as Verify_Inventory_Constraint; \
+        ')
+        rs = con.execute(query)
+        results =  [dict(row) for row in rs]
+        return results
+
+
+
+# DEAD BUT I DONT WANNA DELETE IT
+# Select i.Name as Beer, count(*) as numSold  \
+#             FROM Transactions t, Bartenders b, ItemsByID i, ShiftHours s \
+#             WHERE s.Bar = :bar \
+#             AND b.bartender = :bartender \
+# 			AND s.Day =  t.day \
+#             AND t.Date = :date \
+# 			AND s.Open = :start \
+# 			AND s.Close = :end \
+#             AND b.ShiftStart = s.Open  \
+#             AND b.ShiftEnd = s.Close  \
+#             And b.Bar = s.Bar  \
+#             AND b.Day = s.Day \
+#             AND b.Bar = t.Bar \
+#             AND t.Day = b.Day \
+#             AND t.ID=i.ID \
+#             AND i.Type = "Beer" \
+#             AND t.Bartender = b.Bartender \
+#             AND (  \
+#                 (  \
+#                     HOUR(STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\'))<12 AND  \
+#                     ( \
+#                         ( HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= HOUR(STR_TO_DATE(b.ShiftStart,\'%h:%i %p\')) ) \
+#                             OR \
+#                         (HOUR(STR_TO_DATE(t.Time,\'%h:%i %p\')) >= 0 AND STR_TO_DATE(t.Time,\'%h:%i %p\')<=STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
+#                     )  \
+#                 ) \
+#                 OR \
+#                 ( \
+#                     (STR_TO_DATE(t.Time,\'%h:%i %p\') >= STR_TO_DATE(b.ShiftStart,\'%h:%i %p\') AND \
+#                     STR_TO_DATE(t.Time,\'%h:%i %p\') <= STR_TO_DATE(b.ShiftEnd,\'%h:%i %p\')) \
+#                 ) \
+#             ) \
+#             Group by beer \
+#             order by numSold desc \

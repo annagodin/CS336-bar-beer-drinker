@@ -275,12 +275,12 @@ def get_bartender_sales_per_shift(bartender, bar, date, start, end):
         if bar is None:
             raise ValueError("Bar is not specified")
         if date is None:
-            raise ValueError("Day is not specified")
+            raise ValueError("Date is not specified")
         if start is None:
             raise ValueError("Start Time is not specified")
         if end is None:
             raise ValueError("End Time is not specified")
-        # date = date.replace('-','/')
+        date = date.replace('-','/')
         return jsonify(database.get_bartender_sales_per_shift(bartender, bar, date, start, end))
     except Exception as e:
         return make_response(str(e), 500)
@@ -356,5 +356,30 @@ def get_top_cities_per_manf_likes(manf):
         if manf is None:
             raise ValueError("Manf not specidied")
         return jsonify(database.get_top_cities_per_manf_likes(manf))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+#--------------------------------------------------------------------------------
+# VERIFICATION QUERIES
+#--------------------------------------------------------------------------------
+
+@app.route('/api/verify-transactions/', methods=['GET'])
+def verify_transaction_hours():
+    try:
+        return jsonify(database.verify_transaction_hours())
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/verify-residency/', methods=['GET'])
+def verify_customer_residency():
+    try:
+        return jsonify(database.verify_customer_residency())
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/verify-beer-price/', methods=['GET'])
+def verify_beer_prices():
+    try:
+        return jsonify(database.verify_beer_prices())
     except Exception as e:
         return make_response(str(e), 500)
