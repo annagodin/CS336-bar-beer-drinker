@@ -219,44 +219,49 @@ def get_top_spenders_per_bar(bar_name):
             results[i]['TotalSpent'] = float(results[i]['TotalSpent'])
         return results
 
-def get_top_beers_per_bar(bar_name):
+def get_top_beers_per_bar(bar_name,weekday):
     with engine.connect() as con:
         query=sql.text('SELECT i.Name, count(*) as numBought \
             FROM Transactions t, ItemsByID i \
             WHERE t.ID = i.ID \
+            AND t.Day = :weekday \
             AND Type = "Beer" \
             AND t.Bar = :bar \
             GROUP BY i.Name \
             ORDER BY numBought desc \
             LIMIT 10; \
         ')
-        rs = con.execute(query, bar = bar_name)
+        rs = con.execute(query, bar = bar_name, weekday= weekday)
         results =  [dict(row) for row in rs]
         # for i, _ in enumerate(results):
         #     results[i]['numBought'] = float(results[i]['numBought'])
         return results
 
 # EACH ROW IS THE PERCENT OF TOTAL SALES OF THE WEEKDAY OVER THE WHOLE TIME PERIOD
-def get_hourly_sale_distribution(bar_name,weekday):
+def get_hourly_sale_distribution(bar,day):
     with engine.connect() as con:
-        query=sql.text('Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour , count(*)/( \
-                select sum(f.numPerHour) as total FROM ( \
-                    Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour , count(*) as numPerHour \
-                    From Transactions t \
-                    Where t.Bar = :bar \
-                    AND t.Day = :day \
-                    GROUP BY HOUR(STR_TO_DATE(Time,\'%h:%i %p\')) \
-                    ) \
-                ) as percentPerHour \
+        query=sql.text('Select (HOUR(STR_TO_DATE(Time,\'%h:%i %p\'))) as Hour , count(*) as numSales \
             From Transactions t \
             Where t.Bar = :bar \
             AND t.Day = :day \
             GROUP BY HOUR(STR_TO_DATE(Time,\'%h:%i %p\')) \
         ')
-        rs = con.execute(query, bar = bar_name, day=weekday)
+        rs = con.execute(query, bar = bar, day=day)
         results =  [dict(row) for row in rs]
-        for i, _ in enumerate(results):
-            results[i]['percentPerHour'] = float(results[i]['percentPerHour'])
+        # for i, _ in enumerate(results):
+        #     results[i]['percentPerHour'] = float(results[i]['percentPerHour'])
+        return results
+
+def get_daily_sale_distribution(bar):
+    with engine.connect() as con:
+        query = sql.text('Select t.day, count(*) as totalSalesPerWeekday\
+            from Transactions t\
+            Where t.bar = :bar\
+            group by t.day\
+            order by STR_TO_DATE(day, \'%d\') \
+        ')
+        rs = con.execute(query, bar = bar)
+        results =  [dict(row) for row in rs]
         return results
 
 def get_top_bars_per_beer(beer):
