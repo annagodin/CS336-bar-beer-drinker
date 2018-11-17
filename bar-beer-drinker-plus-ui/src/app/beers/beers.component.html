@@ -1,0 +1,48 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Find your favorite beers!</h1>
+      <p class="lead">This page can be used to see all the beers in our system or just the ones by your preferred
+        manufacturer.</p>
+        <p class="lead">Please click on a beer to have some data analytics load about it.</p>
+      <p-dropdown *ngIf="manufacturerOptions" [ngClass]="{ 'no-option-selected': selectedManufacturer === undefined || selectedManufacturer === null }"
+        placeholder="Filter by manufacturer" [options]="manufacturerOptions" [(ngModel)]="selectedManufacturer" showClear="true"
+        (onChange)="filterBeers($event.value)"></p-dropdown>
+    </div>
+  </div>
+  <br>
+
+<div class="container">
+  <h2 class="text-center font-weight-light" >Beers</h2>
+  <p-table [value]="beers" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Manufacturer</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-beer>
+      <tr>
+        <td (click)="onBeerGraph(beer.Name)">{{ beer.Name }}</td>
+        <td>{{ beer.Manufacturer }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br><br>
+</div>
+
+<div class="container">
+  <br>
+  <div id="bargraph"></div>
+</div>
+
+
+<div class="container">
+    <br>
+    <div id="container"></div>
+  </div>
+
+<div class="container">
+    <br>
+    <div id="testing"></div>
+  </div>
+  

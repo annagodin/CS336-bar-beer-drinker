@@ -1,0 +1,38 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">{{manf}}</h1>
+      <p class="lead">Details about the past week.</p>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" href="/manufacturer/{{ manf }}">Sales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/manufacturer/{{ manf }}/likes">Likes</a>
+        </li>
+      </ul>
+  
+  
+      <div class="container">
+          <p-table [value]="likes">
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th>Region Where Beers are Liked Most</th>
+                      <th>Number of Customers</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-likes>
+                  <tr>
+                      <td>{{likes.City}}</td>
+                      <td>{{likes.numLikes}}</td>
+                  </tr>
+              </ng-template>
+          </p-table>
+          <br><br>
+        </div>
+
+
+
+

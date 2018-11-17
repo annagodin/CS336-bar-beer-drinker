@@ -18,7 +18,7 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit() {
   }
-
+ 
   getBars(){
     this.barService.getBars().subscribe(
       data =>  {

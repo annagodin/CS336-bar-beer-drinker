@@ -1,1 +1,1 @@
-database_uri = "mysql+pymysql://bbdplus_aad:annaalexdanielle@bbd-plus.cbiyd2tnkhp6.us-east-2.rds.amazonaws.com"
+database_uri = "mysql+pymysql://bbdplus_aad:annaalexdanielle@bbd-plus.cbiyd2tnkhp6.us-east-2.rds.amazonaws.com/BarBeerDrinkerPlus"
