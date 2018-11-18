@@ -655,7 +655,7 @@ def verify_bartender_shifts():
 #Customers table:
 def insert_customer(name, city, phone):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Customers VALUES :name, :city, :phone')
+        query=sql.text('INSERT INTO Customers (Name,City,Phone) VALUES (:name, :city, :phone)')
         rs = con.execute(query, name=name, city=city, phone=phone)
 
 def update_customer(name, city, phone):

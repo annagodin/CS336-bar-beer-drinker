@@ -426,3 +426,22 @@ def verify_bartender_shifts():
         return jsonify(database.verify_bartender_shifts())
     except Exception as e:
         return make_response(str(e), 500)
+
+
+#--------------------------------------------------------------------------------
+# MODIFICATIONS
+#--------------------------------------------------------------------------------
+
+@app.route('/api/insert-customer/<name>/<city>/<phone>', methods=['GET'])
+def insert_customer(name, city, phone):
+    try:
+        if name is None:
+            raise ValueError("name not specified")
+        if city is None:
+            raise ValueError("city not specified")
+        if phone is None:
+            raise ValueError("phone not specified")
+        database.insert_customer(name, city, phone)
+        return("Successfuly Added Customer")
+    except Exception as e:
+        return make_response(str(e), 500)
