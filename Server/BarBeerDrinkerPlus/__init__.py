@@ -426,3 +426,68 @@ def verify_bartender_shifts():
         return jsonify(database.verify_bartender_shifts())
     except Exception as e:
         return make_response(str(e), 500)
+
+
+#--------------------------------------------------------------------------------
+# MODIFICATIONS
+#--------------------------------------------------------------------------------
+
+
+#Customers table: ------------------------------------------------------------------
+@app.route('/api/insert-customer/<name>/<city>/<phone>', methods=['GET'])
+def insert_customer(name, city, phone):
+    try:
+        if name is None:
+            raise ValueError("name not specified")
+        if city is None:
+            raise ValueError("city not specified")
+        if phone is None:
+            raise ValueError("phone not specified")
+        database.insert_customer(name, city, phone)
+        return("Successfuly Added Customer")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+@app.route('/api/update-customer/<name>/<city>/<phone>', methods=['GET'])
+def update_customer(name,city,phone):
+    try:
+        if name is None:
+            raise ValueError("name not specified")
+        if city is None:
+            raise ValueError("city not specified")
+        if phone is None:
+            raise ValueError("phone not specified")
+        database.update_customer(name, city, phone)
+        return ("Successfully Updated Customer")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/delete-customer/<name>', methods=['GET'])
+def delete_customer(name):
+    try:
+        if name is None:
+            raise ValueError("name not specified")
+        database.delete_customer(name)
+        return ("Successfully Deleted Customer")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+
+#Bars table:------------------------------------------------------------------
+@app.route('/api/insert_bar/<bar>/<city>/<phone>/<license>', methods=['GET'])
+def insert_bar(bar,city,phone,license):
+    try: 
+        if bar is None:
+            raise ValueError("name not specified")
+        if city is None:
+            raise ValueError("city not specified")
+        if phone is None:
+            raise ValueError("phone not specified")
+        if license is None:
+            raise ValueError("license not specified")
+        database.insert_bar(bar,city,phone,license)
+        return ("Successfully Inserted Bar")
+    except Exception as e:
+        return make_response(str(e), 500)
