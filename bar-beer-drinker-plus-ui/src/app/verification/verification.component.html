@@ -1,0 +1,34 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{drinkerName}}</h1>
+    <p class="lead">Transactions ordered by time and grouped by bar.</p>
+    <p class="lead">Scroll Down For Drinker Data Analytics</p>
+
+  </div>
+</div>
+
+<div class="container">
+  <p-table [value]="transactions" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+        <tr>
+          <th>Query Pattern</th>
+          <th>Bar</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-transactions>
+        <tr>
+            <td>
+                <a routerLink="/drinker/{{ transactions.Customer }}/{{transactions.ID}}">
+                  {{ transactions.ID }}
+                </a>
+              </td>
+          <td>{{ transactions.Bar }}</td>
+          <td>{{ transactions.Date }}</td>
+          <td>{{ transactions.Day }}</td>
+          <td>{{ transactions.Time }}</td>
+          <td>{{ transactions.Tip }}%</td>
+          <td>{{ transactions.TotalCost | currency}}</td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div>

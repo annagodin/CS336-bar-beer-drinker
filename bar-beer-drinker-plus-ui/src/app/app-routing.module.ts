@@ -19,8 +19,9 @@ import { ModificationComponent } from './modification/modification.component';
 import { BartenderSalesComponent } from './bartender-sales/bartender-sales.component';
 import { BartenderAnalyticsComponent } from './bartender-analytics/bartender-analytics.component';
 import { BartenderRankingComponent } from './bartender-ranking/bartender-ranking.component';
+import { VerificationComponent } from './verification/verification.component';
 
-//bye
+
 
 const routes: Routes = [
   {
@@ -128,6 +129,11 @@ const routes: Routes = [
     path: 'bartender/:bartender/:bar/:date/:start/:end',
     pathMatch: 'full',
     component: BartenderSalesComponent
+  },
+  {
+    path: 'verification',
+    pathMatch: 'full',
+    component: VerificationComponent
   }
 ];
 

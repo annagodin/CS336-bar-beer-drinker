@@ -29,6 +29,7 @@ import { ModificationComponent } from './modification/modification.component';
 import { BartenderSalesComponent } from './bartender-sales/bartender-sales.component';
 import { BartenderAnalyticsComponent } from './bartender-analytics/bartender-analytics.component';
 import { BartenderRankingComponent } from './bartender-ranking/bartender-ranking.component';
+import { VerificationComponent } from './verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { BartenderRankingComponent } from './bartender-ranking/bartender-ranking
     ModificationComponent,
     BartenderSalesComponent,
     BartenderAnalyticsComponent,
-    BartenderRankingComponent
+    BartenderRankingComponent,
+    VerificationComponent
   ],
   imports: [
     BrowserModule,
