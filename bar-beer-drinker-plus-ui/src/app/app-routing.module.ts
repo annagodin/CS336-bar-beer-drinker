@@ -28,15 +28,14 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'bars'
   },  
-  
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'bars'
+    redirectTo: 'welcome'
   },
   
   {
-    path: 'bars',
+    path: 'welcome',
     pathMatch: 'full',
     component: WelcomeComponent
   },
@@ -46,7 +45,7 @@ const routes: Routes = [
     component: ModificationComponent
   },
   {
-    path: 'bars/:bar',
+    path: 'bars',
     pathMatch: 'full',
     component: BarDetailsComponent
   },

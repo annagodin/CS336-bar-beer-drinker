@@ -17,6 +17,8 @@ export class BarDetailsComponent implements OnInit {
   barName: string;
   barDetails: Bar;
   menu: BarMenuItem[];
+  bars: Bar[];
+
 
   daysOfTheWeek: SelectItem [];
 
@@ -27,26 +29,48 @@ export class BarDetailsComponent implements OnInit {
     route.paramMap.subscribe((paramMap) => {
       this.barName = paramMap.get('bar');
 
-      barService.getBar(this.barName).subscribe(
-        data => {
-          this.barDetails = data;
+      this.barService.getBars().subscribe(
+        data =>  {
+            this.bars = data;
         },
-        (error: HttpResponse<any>) => {
-          if (error.status === 404) {
-            alert('Bar not found');
-          } else {
-            console.error(error.status + ' - ' + error.body);
-            alert('An error occurred on the server. Please check the browser console.');
-          }
-        });
-
-      barService.getMenu(this.barName).subscribe(
-        data => {
-           this.menu = data;
+        error => {
+            alert('could not retrieve a list of bars');
         }
       );
+
+      // barService.getBar(this.barName).subscribe(
+      //   data => {
+      //     this.barDetails = data;
+      //   },
+      //   (error: HttpResponse<any>) => {
+      //     if (error.status === 404) {
+      //       alert('Bar not found');
+      //     } else {
+      //       console.error(error.status + ' - ' + error.body);
+      //       alert('An error occurred on the server. Please check the browser console.');
+      //     }
+      //   });
+
+      // barService.getMenu(this.barName).subscribe(
+      //   data => {
+      //      this.menu = data;
+      //   }
+      // );
     });
 
+   
+  }
+
+  ngOnInit() {
+  }
+
+  setBarSelected(bar : string){
+    this.barName= bar;
+    this.loadAllGraphs();
+  }
+
+  loadAllGraphs(){
+    console.log("inside load all graphs for bar: ", this.barName);
     this.daysOfTheWeek = [
       {
         'label': 'Sunday',
@@ -118,13 +142,7 @@ export class BarDetailsComponent implements OnInit {
       this.setPopulateForDay('Sunday');
   }
 
-  ngOnInit() {
-  }
-
-
-  setPopulateForDay(day : string){
-    console.log("day of the week selected is: ", day);
-    
+  setPopulateForDay(day : string){    
     this.barService.getTopBrandsPerDay(day, this.barName).subscribe(
       data => {
         const name = [];

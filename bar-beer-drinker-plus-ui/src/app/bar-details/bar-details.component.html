@@ -1,43 +1,34 @@
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4">{{ barName }}</h1>
-        <p class="bar-details" *ngIf="barDetails">
-            {{ barDetails?.City }} <span *ngIf="barDetails.City && barDetails.Phone">|</span> {{ barDetails?.Phone }}
-            <br>
-            {{ barDetails?.License }}
-        </p>
+        <h1 class="display-4">Bar Page</h1>
     </div>
 </div>
 
-<p class="text-lg-center">Scroll Down For Data On Bar: {{ barName }}.</p>
+<p class="text-lg-center">Please Select Bar Under Name And Scroll Down For Analytics</p>
 
 
 <div class="container">
-    <div class="row">
-    <h2 class="text-center font-weight-light">Bar Menu</h2>
-    <br>
-    <p-table [value]="menu" [paginator]="true" [rows]="10">
-        <ng-template pTemplate="header">
-            <tr>
+        <p-table [value]="bars" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="header">
+              <tr>
                 <th>Name</th>
-                <th>Type</th>
-                <th>Manufacturer</th>
-                <th>Price</th>
-                <th>Likes</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item>
-            <tr>
-                <td><a routerLink="/beers/{{ item.Name }}">{{ item.Name }}</a></td>
-                <td>{{ item.Type }}</td>
-                <td>{{ item.Manufacturer }}</td>
-                <td>{{ item.Price | currency}}</td>
-                <td>{{ item.likes }}</td> 
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
-</div>
+                <th>Licence</th>
+                <th>City</th>
+                <th>Phone</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-bar>
+              <tr>
+                <td (click)="setBarSelected(bar.Bar)">
+                    {{ bar.Bar }}
+                </td>
+                <td>{{ bar.License }}</td>
+                <td>{{ bar.City }}</td>
+                <td>{{ bar.Phone }}</td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
 
 <br>
 
@@ -84,6 +75,3 @@
     </div>
 </div>
 
-<div class="container">
-<h4 class="" id="analytics">Bar Analytics</h4>
-</div>
