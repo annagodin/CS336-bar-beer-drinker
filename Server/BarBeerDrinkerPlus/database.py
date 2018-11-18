@@ -635,7 +635,7 @@ def verify_bartender_shifts():
 #Customers table:
 def insert_customer(name, city, phone):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Customers VALUES :name, :city, :phone')
+        query=sql.text('INSERT INTO Customers VALUES (:name, :city, :phone)')
         rs = con.execute(query, name=name, city=city, phone=phone)
 
 def update_customer(name, city, phone):
@@ -652,7 +652,7 @@ def delete_customer(name):
 #Bars table:
 def insert_bars(bar, city, phone, license):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Bars VALUES :bar, :city, :phone, :license')
+        query=sql.text('INSERT INTO Bars VALUES (:bar, :city, :phone, :license)')
         rs = con.execute(query, bar = bar, city=city, phone=phone, license =license)
 
 def update_bars(bar, city, phone, license):
@@ -670,8 +670,8 @@ def delete_bars(name):
 #Bartenders
 def insert_bartenders(bartender, bar, day, start, end):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Bartenders VALUES :bartender, :bar, \
-        :day, :start, :end')
+        query=sql.text('INSERT INTO Bartenders VALUES (:bartender, :bar, \
+        :day, :start, :end)')
         rs = con.execute(query, bartender= bartender, bar=bar, day=day, start=start, end=end)
 
 def update_bartenders(bartender, bar, day, start, end):
@@ -689,7 +689,7 @@ def delete_bartenders(bartender):
 #frequents
 def insert_frequents(name, bar):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Frequents VALUES :name, :bar')
+        query=sql.text('INSERT INTO Frequents VALUES (:name, :bar)')
         rs = con.execute(query, name=name, bar=bar)
 
 def update_frequents(name, bar):
@@ -706,7 +706,7 @@ def delete_frequents(name, bar):
 #Item
 def insert_item(typie, name, manufacturer, base):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Item VALUES :typie, :name, :manufacturer, :base')
+        query=sql.text('INSERT INTO Item VALUES (:typie, :name, :manufacturer, :base)')
         rs = con.execute(query, typie = typie, name = name, manufacturer = manufacturer, base = base)
 
 def update_item(typie, name, manufacturer, base):
@@ -724,7 +724,7 @@ def delete_item(name):
 #ItemsByID
 def insert_items_by_id(id, typie, name, price):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO ItemsByID VALUES :id, :typie, :name, :price')
+        query=sql.text('INSERT INTO ItemsByID VALUES (:id, :typie, :name, :price)')
         rs = con.execute(query, id = id, typie = typie, name=name, price=price)
 
 def update_items_by_id(id, typie, name, price):
@@ -742,7 +742,7 @@ def delete_items_by_id(name, id):
 #likes
 def insert_likes(customer, beer):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Likes VALUES :customer, :beer')
+        query=sql.text('INSERT INTO Likes VALUES (:customer, :beer)')
         rs = con.execute(query, customer = customer, beer = beer)
 
 def update_likes(customer, beer):
@@ -759,7 +759,7 @@ def delete_likes(customer, beer):
 #sells
 def insert_sells(bar, margin, name, typie, base, price):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO MasterSells VALUES :bar, :margin, :name, :typie, base, :price')
+        query=sql.text('INSERT INTO MasterSells VALUES (:bar, :margin, :name, :typie, base, :price)')
         rs = con.execute(query, bar = bar, margin = margin, name = name, typie = typie, base = base, price = price)
 
 def update_sells(bar, margin, name, typie, base, price):
@@ -777,7 +777,7 @@ def delete_sells(bar, name):
 #openhours table:
 def insert_open(bar, day, open, close):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO OpenHours  VALUES :bar, :day, :open, :close')
+        query=sql.text('INSERT INTO OpenHours  VALUES (:bar, :day, :open, :close)')
         rs = con.execute(query, bar = bar, day=day, open=open, close =close)
 
 def update_open(bar, day, open, close):
@@ -795,7 +795,7 @@ def delete_open(bar):
 #shifthours
 def insert_open(bar, day, open, close):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO ShiftHours  VALUES :bar, :day, :open, :close')
+        query=sql.text('INSERT INTO ShiftHours  VALUES (:bar, :day, :open, :close)')
         rs = con.execute(query, bar = bar, day=day, open=open, close =close)
 
 #idk about this one
@@ -814,7 +814,7 @@ def delete_open(bar, day, open):
 #stores
 def insert_stores(bar, beer, day, amount):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Stores VALUES :bar, :beer, :day, :amount')
+        query=sql.text('INSERT INTO Stores VALUES (:bar, :beer, :day, :amount)')
         rs = con.execute(query, bar = bar, beer = beer, day=day, amount = amount)
 
 def update_stores(bar, beer, day, amount):
@@ -831,8 +831,8 @@ def delete_stores(bar, beer):
 #transactions
 def insert_transactions(bar, id, date, day, time, customer, tip, totalcost, bartender):
       with engine.connect() as con:
-        query=sql.text('INSERT INTO Stores VALUES :bar, :id, :date, :day \
-        :time, :customer, :tip, :totalcost, :bartender')
+        query=sql.text('INSERT INTO Stores VALUES (:bar, :id, :date, :day \
+        :time, :customer, :tip, :totalcost, :bartender)')
         rs = con.execute(query, bar = bar, id = id, date=date, time = time, customer = customer, tip = tip, totalcost = totalcost, bartender = bartender)
 
 def update_transactions(bar, id, date, day, time, customer, tip, totalcost, bartender):
