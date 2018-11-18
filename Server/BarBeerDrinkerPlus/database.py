@@ -141,7 +141,14 @@ def get_customer_transactions(name):
         STR_TO_DATE(Time,\'%h:%i %p\'); \
             ')
         rs = con.execute(query, name=name)
-        return [dict(row) for row in rs]
+        result = [dict(row) for row in rs]
+
+        for x in result:
+            temp = x['Tip']
+            temp = temp*100
+            temp=int(temp)
+            x['Tip']=temp
+        return result
 
         
 def get_customer_names():
