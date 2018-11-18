@@ -8,19 +8,30 @@
 </div>
 <br>
 
-<p class="text-monospace">This is in monospace</p>
-<p class="text-left">Left aligned text on all viewport sizes.</p>
-  <div class="container">
-      <div>
-        <p-dropdown class="float-left text-left" *ngIf="databaseOptions" [options]="databaseOptions" (onChange)="setDatabase($event.value)"
-        [style]="{'width':'150%'}"></p-dropdown>
-      </div>
-    </div>
 
-    <div class="container">
-        <div>
-          <p-dropdown class="float-right text-left" *ngIf="modificationOptions" [options]="modificationOptions" (onChange)="setModification($event.value)" 
-          [style]="{'width':'150%'}"></p-dropdown>
-        </div>
-      </div>
+<div class="container">
+<div class="row">
+    <div class="col">
+        <p class="font-weight-bold">Please select a database where you would like to perform an action.</p>
+        <br>
+        <p-dropdown class="float-center" *ngIf="databaseOptions" [options]="databaseOptions" (onChange)="setDatabase($event.value)"
+        autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
+    </div>
+    <div class="col">
+        <p class="font-weight-bold">Please select a action you would like to perform.</p>
+        <br>
+        <p-dropdown class="float-center" *ngIf="modificationOptions" [options]="modificationOptions" (onChange)="setModification($event.value)" 
+        autoWidth="false" [style]="{'width':'100%'}"></p-dropdown>
+    </div>
+  </div>
+</div>
+
   
+  <br>
+  <br>
+  <br>
+
+  <div class="container">
+  <button type="button" class="btn btn-primary btn-lg btn-pull-right" value="generateForm" (click)="generateForm()">Generate Form</button>
+  </div>
+ 
