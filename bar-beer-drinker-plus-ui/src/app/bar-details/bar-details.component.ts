@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BarsService, Bar, BarMenuItem } from '../bars.service';
+import { BarsService, Bar, BarMenuItem} from '../bars.service';
 import { HttpResponse } from '@angular/common/http';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
@@ -21,6 +21,8 @@ export class BarDetailsComponent implements OnInit {
   selectText: boolean;
   
   daysOfTheWeek: SelectItem [];
+  manfsForDrop: SelectItem[];
+  dataAnalytics: boolean;
 
   // private static $inject = ['$scope', '$location', '$anchorScroll'];
 
@@ -29,6 +31,7 @@ export class BarDetailsComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
     this.selectText= false;
+    this.dataAnalytics= false;
     console.log("Select text is:", this.selectText);
     route.paramMap.subscribe((paramMap) => {
       this.barName = paramMap.get('bar');
@@ -41,31 +44,24 @@ export class BarDetailsComponent implements OnInit {
             alert('could not retrieve a list of bars');
         }
       );
-
-      // barService.getBar(this.barName).subscribe(
-      //   data => {
-      //     this.barDetails = data;
-      //   },
-      //   (error: HttpResponse<any>) => {
-      //     if (error.status === 404) {
-      //       alert('Bar not found');
-      //     } else {
-      //       console.error(error.status + ' - ' + error.body);
-      //       alert('An error occurred on the server. Please check the browser console.');
-      //     }
-      //   });
-
-      // barService.getMenu(this.barName).subscribe(
-      //   data => {
-      //      this.menu = data;
-      //   }
-      // );
     });
-
-   
   }
 
   ngOnInit() {
+  }
+
+  showDataAnalytics(){
+    console.log("IN LOAD BAR ANALYTICS");
+    this.dataAnalytics= true;
+
+    setTimeout(function(){
+      document.getElementById('data').scrollIntoView(true);
+    },300)
+
+  }
+
+  setPopulateForBrandAnalytics(brand: string){
+
   }
 
   setBarSelected(bar : string){
@@ -315,7 +311,7 @@ export class BarDetailsComponent implements OnInit {
       type: 'column'
     },
     title: {
-      text: 'Top Brands sold on '+ event + '.'
+      text: 'Top Brands sold on '+ event + ' for bar: '+ this.barName+ '.'
     },
     xAxis: {
       categories: bars,

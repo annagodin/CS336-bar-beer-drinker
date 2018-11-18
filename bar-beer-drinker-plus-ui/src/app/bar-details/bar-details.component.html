@@ -1,10 +1,23 @@
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-4">Bar Page</h1>
+        <p class="lead">Please Select Bar Under Name For Analytics For A Specific Bar</p>
+        <p class="lead">Click "Bar Analytics" in the right corner for analytics about all bars</p>
     </div>
 </div>
 
-<p class="text-lg-center">Please Select Bar Under Name And Scroll Down For Analytics</p>
+<div id = "data">
+<div class="row row align-items-right" >
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col align-items-center">
+       <p class="text-lg-center">
+        <td (click)="showDataAnalytics()">
+        <u>Bar Analytics</u></td>
+          </p>
+        </div>
+    </div>
+</div>
 
 
 <div class="container">
@@ -32,6 +45,14 @@
 
 <br>
 
+<!--- PER DATA ANALYTICS-->
+<div *ngIf="dataAnalytics">
+<p class="text-monospace">Select Beer Brand</p>
+<p-dropdown class="float-right text-center" *ngIf="manufacturer" [options]="manufacturer" (onChange)="setPopulateForBrandAnalytics($event.value)" ></p-dropdown>
+</div>
+
+
+<!-- PER BAR-->
 <div class="container">
 <div class="row justify-content-center" >
 <div id = "scrollHere">
