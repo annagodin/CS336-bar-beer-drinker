@@ -5,3 +5,9 @@ dl {
     margin-left: 0;
     margin-right: 0;
 }
+
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}

@@ -18,14 +18,18 @@ export class BarDetailsComponent implements OnInit {
   barDetails: Bar;
   menu: BarMenuItem[];
   bars: Bar[];
-
-
+  selectText: boolean;
+  
   daysOfTheWeek: SelectItem [];
+
+  // private static $inject = ['$scope', '$location', '$anchorScroll'];
 
   constructor(
     private barService: BarsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
+    this.selectText= false;
+    console.log("Select text is:", this.selectText);
     route.paramMap.subscribe((paramMap) => {
       this.barName = paramMap.get('bar');
 
@@ -70,6 +74,12 @@ export class BarDetailsComponent implements OnInit {
   }
 
   loadAllGraphs(){
+    this.selectText= true;
+
+    setTimeout(function(){
+      document.getElementById('scrollHere').scrollIntoView(true);
+    },300)
+    
     console.log("inside load all graphs for bar: ", this.barName);
     this.daysOfTheWeek = [
       {
