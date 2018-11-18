@@ -278,6 +278,23 @@ def get_top_bars_per_beer(beer):
         results =  [dict(row) for row in rs]
         return results
 
+
+def get_top_bars_per_manf(manf):
+    with engine.connect() as con:
+        query=sql.text('Select t.Bar, count(*) as NumBought \
+            From Transactions t, ItemsByID i, Item m \
+            Where t.ID = i.ID AND \
+            i.Name = m.Name\
+            And m.Manufacturer =  :manf\
+            Group by t.bar\
+            order by NumBought desc \
+            limit 10 \
+        ')
+        rs = con.execute(query, manf = manf)
+        results =  [dict(row) for row in rs]
+        return results
+
+
 def get_top_customers_per_beer(beer):
     with engine.connect() as con:
         query=sql.text('   Select t.Customer, count(*) as NumBought \
@@ -440,28 +457,31 @@ def get_bartender_analytics(bar,day,start,end):
         results =  [dict(row) for row in rs]
         return results
 
+#average percent
 def get_inventory_sales_distribution(bar):
     with engine.connect() as con:
-        query = sql.text('Select t.Date, (count(*)/ \
-            ( \
-                Select sum(Amount) as Total_Inventory \
-                from Stores s \
-                Where Bar = :bar \
-                AND s.Day =t.Day \
-                group By day \
-                )*100 \
-                ) as percentOfInventory \
-            From Transactions t, ItemsByID i \
-            Where t.ID = i.ID \
-            And Bar = :bar \
-            And Type = "Beer" \
-            group by Date \
-            Order by STR_TO_DATE(Date, \'%m/%d/%y\') \
+        query = sql.text('select  b.Day, avg(b.percent) as percentage from \
+            (Select Weekday(STR_TO_DATE(t.Date, \'%m/%d/%Y\')) as dayNum, t.Day, t.Date, (count(*)/ \
+                        ( \
+                            Select sum(Amount) as Total_Inventory \
+                            from Stores s \
+                            Where Bar = :bar \
+                            AND s.Day =t.Day  \
+                            group By day  \
+                            )*100  \
+                            ) as percent\
+                        From Transactions t, ItemsByID i \
+                        Where t.ID = i.ID  \
+                        And Bar = :bar \
+                        And Type = "Beer"  \
+                        group by Date  \
+                        Order by STR_TO_DATE(Date, \'%m/%d/%Y\') ) b       \
+            group by b.dayNum \
         ')
         rs = con.execute(query, bar=bar)
         results =  [dict(row) for row in rs]
         for i, _ in enumerate(results):
-            results[i]['percentOfInventory'] = float(results[i]['percentOfInventory'])
+            results[i]['percentage'] = float(results[i]['percentage'])
         return results
 
 # this is a mouthful im sorry
