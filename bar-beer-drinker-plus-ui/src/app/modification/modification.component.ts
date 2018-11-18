@@ -83,6 +83,10 @@ export class ModificationComponent implements OnInit {
   ngOnInit() {
   }
 
+  generateForm(){
+    console.log("Button Worked");
+  }
+
   setDatabase(database: string) {
     this.currentDatabase= database;
     console.log("the current db is: ", this.currentDatabase);

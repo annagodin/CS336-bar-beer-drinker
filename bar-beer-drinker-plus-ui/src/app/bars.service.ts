@@ -18,6 +18,11 @@ export interface BarMenuItem {
   likes: number;
 }
 
+export interface Spender{
+  Customer: string;
+  count: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,4 +47,25 @@ export class BarsService {
   getFrequentCounts() {
     return this.http.get<any[]>('/api/frequents-data');
   }
+
+  getTopBrandsPerDay(day : string, bar : string) {
+    return this.http.get<any[]>('/api/top-beers-bar/' + bar + '/' + day);
+  }
+
+  getTopSpendersPerBar(bar : string) {
+    return this.http.get<any[]>(`api/top-spenders/${bar}`);
+  }
+
+  getInventorySold(bar : string) {
+    return this.http.get<any[]>(`/api/inventory-distribution/${bar}`);
+  }
+
+  getDistributionTime(bar : string, day : string) {
+    return this.http.get<any[]>('/api/busiest-hours/' + bar + '/' + day);
+  }
+
+  getDistributionDay(bar : string) {
+    return this.http.get<any[]>('/api/busiest-days/' + bar);
+  }
+
 }

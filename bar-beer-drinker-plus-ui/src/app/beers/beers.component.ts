@@ -52,6 +52,7 @@ export class BeersComponent implements OnInit {
     
     this.beerService.getTopSellingBars(event).subscribe(
       data => {
+        console.log("Data for top selling: ", data);
         const bars = [];
         const counts = [];
 
@@ -78,15 +79,12 @@ export class BeersComponent implements OnInit {
 
     this.beerService.getBeerSaleDistribution(event).subscribe(
       data => {
-        console.log("Data:" ,data);
         const hour = [];
         const counts = [];
 
         data.forEach(bar => {
           hour.push(bar.Hour);
-          console.log("Hour :" ,bar.Hour);
           counts.push(bar.NumBought);
-          console.log("Num :" , bar.NumBought);
         });
         this.renderChartSaleDistribution(hour, counts, event);
       }
