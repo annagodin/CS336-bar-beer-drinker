@@ -222,14 +222,24 @@ def get_daily_sale_distribution(bar):
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/top-bars/<beer>', methods=['GET'])
+@app.route('/api/top-bars-manf/<manf>', methods=['GET'])
+def get_top_bars_per_manf(manf):
+    try:
+        if manf is None:
+             raise ValueError("Manf is not specified")
+        return jsonify(database.get_top_bars_per_manf(manf))
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/top-bars-beer/<beer>', methods=['GET'])
 def get_top_bars_per_beer(beer):
     try:
         if beer is None:
-             raise ValueError("Beer is not specified")
+             raise ValueError("beer is not specified")
         return jsonify(database.get_top_bars_per_beer(beer))
     except Exception as e:
         return make_response(str(e), 500)
+
 
 @app.route('/api/top-customers/<beer>', methods=['GET'])
 def get_top_customers_per_beer(beer):
