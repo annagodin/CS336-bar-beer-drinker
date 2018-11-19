@@ -697,7 +697,8 @@ def delete_bar(name):
         rs = con.execute(query, name = name)
 
 
-
+ 
+#  hello
 #Bartenders------------------------------------------------------------------
 def insert_bartender(bartender, bar, day, start, end):
       with engine.connect() as con:
