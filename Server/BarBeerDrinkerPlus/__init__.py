@@ -476,7 +476,7 @@ def delete_customer(name):
 
 
 #Bars table:------------------------------------------------------------------
-@app.route('/api/insert_bar/<bar>/<city>/<phone>/<license>', methods=['GET'])
+@app.route('/api/insert-bar/<bar>/<city>/<phone>/<license>', methods=['GET'])
 def insert_bar(bar,city,phone,license):
     try: 
         if bar is None:
@@ -489,5 +489,52 @@ def insert_bar(bar,city,phone,license):
             raise ValueError("license not specified")
         database.insert_bar(bar,city,phone,license)
         return ("Successfully Inserted Bar")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/update-bar/<bar>/<city>/<phone>/<license>', methods=['GET'])
+def update_bar(bar,city,phone,license):
+    try:
+        database.update_bar(bar,city,phone,license)
+        return ("Successfully Updater Bar")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/delete-bar/<name>', methods=['GET'])
+def delete_bar(name):
+    try:
+        if name is None:
+            raise ValueError("name not specified")
+        database.delete_bar(name)
+        return ("Successfully Deleted Bar")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+#bartender table: ------------------------------------------------------------------
+@app.route('/api/insert-bartender/<bartender>/<bar>/<day>/<start>/<end>', methods=['GET'])
+def insert_bartender(bartender,bar,day,start,end):
+    try:
+        database.insert_bartender(bartender,bar,day,start,end)
+        return("Successfuly Added bartender")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+
+@app.route('/api/update-bartender/<bartender>/<bar>/<day>/<start>/<end>', methods=['GET'])
+def update_bartender(bartender,bar,day,start,end):
+    try:
+        database.update_bartender(bartender,bar,day,start,end)
+        return ("Successfully Updated bartender")
+    except Exception as e:
+        return make_response(str(e), 500)
+
+@app.route('/api/delete-bartender/<bartender>/<bar>/<day>', methods=['GET'])
+def delete_bartender(bartender,bar,day):
+    try:
+        if bartender is None:
+            raise ValueError("bartender not specified")
+        database.delete_bartender(bartender,bar,day)
+        return ("Successfully Deleted Bartender")
     except Exception as e:
         return make_response(str(e), 500)

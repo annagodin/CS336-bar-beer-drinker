@@ -33,23 +33,60 @@
   <br>
 
   <div class="container">
-  <button type="button" class="btn btn-primary btn-lg btn-pull-right" value="generateForm" (click)="generateForm()">Generate Form</button>
+  <button type="button" class="btn btn-primary btn-lg btn-pull-right" value="generateForm" (click)="generateFormUpdate()">Generate Form</button>
   </div>
 
   <br>
   <br>
   <br>
 
+  <div *ngIf= "loadTable">
+  <div id = "scrollHere">
+  <p class="text-monospace">Update Form: Please select a column you wish to edit.</p>
+  <div class="container">
+      <p-table [value]="bars" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+            <tr>
+              <th>Name</th>
+              <th>Licence</th>
+              <th>City</th>
+              <th>Phone</th>
+              <th>Button</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-bar>
+            <tr>
+              <td>
+                  {{ bar.Bar }}
+              </td>
+              <td>{{ bar.License }}</td>
+              <td>{{ bar.City }}</td>
+              <td>{{ bar.Phone }}</td>
+              <td>
+              <button type="button" class="btn btn-primary btn-sm" (click)="tableData(bar)"
+              >Choose Column</button>
+              </td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+
 
  
 
 
-  <!-- CODE FOR UPDATE MODIFICATION-->
-
+  <!-- CODE FOR INSERT MODIFICATION-->
   <div *ngIf= "loadForm">
   <div id = "scrollHere">
-  <p class="text-monospace">Update Form: Please enter data for the following columns.</p>
-  <div class="row" >
+  <div class="row justify-content-center" >
+  <p class="text-monospace">Form: Please enter data for the following columns.</p>
+  </div>
+  <div class="row justify-content-center" >
   <ng-template ngFor let-col [ngForOf]="colInfoUpdate" let-i="index">
     <form>
       <div class="col">
@@ -62,16 +99,48 @@
     </form>
   </ng-template>
 </div>
-
   </div>
 </div>
 
-    <br>
+  <!-- CODE FOR INSERT MODIFICATION-->
+  <div *ngIf= "loadFormUpdate">
+      <div id = "scrollHere">
+      <div class="row justify-content-center" >
+      <p class="text-monospace">Form: Please enter data for the following columns.</p>
+      </div>
+      <div class="row justify-content-center" >
+      <ng-template ngFor let-col [ngForOf]="colInfoUpdate" let-i="index">
+        <form>
+          <div class="col">
+          <div class="form-group">
+            <label for="formGroupExample">{{ col }}</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Insert new data" 
+            [(ngModel)]="formData[col]" name="{{col}}">
+        </div>
+        </div>
+        </form>
+      </ng-template>
+    </div>
+      </div>
+    </div>
+
+<!-- END INSERT ONE-->
     <br>
     <br>
 
+<div class="row justify-content-center" >
   <div *ngIf= "loadForm">
     <button type="button" class="btn btn-primary btn-lg btn-pull-right" (click)="enterData()">Enter Data</button>
     <div class="divider"></div>
     <button type="button" class="btn btn-primary btn-lg btn-pull-right" (click)="clearData()">Cancel Entry</button>
+  </div>
+</div>
+
+
+<div class="row justify-content-center" >
+    <div *ngIf= "loadFormUpdate">
+      <button type="button" class="btn btn-primary btn-lg btn-pull-right" (click)="enterData()">Enter Data</button>
+      <div class="divider"></div>
+      <button type="button" class="btn btn-primary btn-lg btn-pull-right" (click)="clearData()">Cancel Entry</button>
+    </div>
   </div>

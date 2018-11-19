@@ -686,7 +686,7 @@ def insert_bar(bar, city, phone, license):
 
 def update_bar(bar, city, phone, license):
       with engine.connect() as con:
-        query=sql.text('UPDATE Bars SET Bar = :bar, City = :city, Phone = :phone, \
+        query=sql.text('UPDATE Bars SET City = :city, Phone = :phone, \
         License = :license \
         where Bar = :bar')
         rs = con.execute(query, bar = bar, city=city, phone=phone, license =license)
@@ -697,25 +697,26 @@ def delete_bar(name):
         rs = con.execute(query, name = name)
 
 
-
+ 
+#  hello
 #Bartenders------------------------------------------------------------------
-def insert_bartenders(bartender, bar, day, start, end):
+def insert_bartender(bartender, bar, day, start, end):
       with engine.connect() as con:
         query=sql.text('INSERT INTO Bartenders VALUES (:bartender, :bar, \
         :day, :start, :end)')
         rs = con.execute(query, bartender= bartender, bar=bar, day=day, start=start, end=end)
 
-def update_bartenders(bartender, bar, day, start, end):
+def update_bartender(bartender, bar, day, start, end):
       with engine.connect() as con:
-        query=sql.text('UPDATE Bartenders SET Bartender = :bartender, Bar = :bar, \
+        query=sql.text('UPDATE Bartenders SET Bar = :bar, \
         Day = :day, ShiftStart = :start, ShiftEnd = :end \
         WHERE Bartender = :bartender')
         rs = con.execute(query, bartender= bartender, bar=bar, day=day, start=start, end=end)
 
-def delete_bartenders(bartender):
+def delete_bartender(bartender,bar,day):
       with engine.connect() as con:
-        query=sql.text('DELETE FROM Bartenders WHERE Bartender = :bartender')
-        rs = con.execute(query, bartender = bartender)
+        query=sql.text('DELETE FROM Bartenders WHERE Bartender = :bartender and Bar = :bar and Day=:day')
+        rs = con.execute(query, bartender = bartender, bar=bar, day=day)
         
 
 
