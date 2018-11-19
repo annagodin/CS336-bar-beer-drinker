@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/components/common/selectitem';
-import {ModificationService } from '../modification.service';
+import {ModificationService, Bar } from '../modification.service';
 
 @Component({
   selector: 'app-modification',
@@ -17,15 +17,24 @@ export class ModificationComponent implements OnInit {
   colInfoUpdate: string[];
   formData: object;
   loadForm: boolean;
+  insertMessage: boolean;
+  updateMessage: boolean;
   loadPopUp: boolean;
-
-
+  loadTable: boolean;
+  loadFormUpdate: boolean;
+  bars: Bar[];
+  tableTest: object;
 
 
   constructor(public modificationService: ModificationService) {
     this.loadForm= false;
+    this.insertMessage= false;
+    this.updateMessage= false;
+    this.loadFormUpdate=false;
     this.formData= {};
+    this.tableTest= {};
     this.loadPopUp=true;
+    this.loadTable=false;
     console.log("form value: ", this.loadForm);
     this.databaseOptions = [
       {
@@ -96,67 +105,130 @@ export class ModificationComponent implements OnInit {
 
   }
 
+  tableData(bar: any){
+    console.log("this is what table data returns: ", bar);
+ 
+  var arr:string[]; 
+    arr = [bar.Bar, bar.City, bar.License, bar.Phone];
+
+    this.colInfoUpdate = arr;
+    this.loadFormUpdate=true;
+  }
+
   ngOnInit() {
   }
 
-  generateForm(){
+  generateFormUpdate(){
+    this.loadTable=false;
+    this.loadForm=false;
+    this.loadFormUpdate=true;
+    this.insertMessage= false;
+    this.updateMessage= false;
     console.log("Button Worked");
-    console.log("the current db is: ", this.currentDatabase);
-    console.log("Mod Type: ", this.modificationType);
+    console.log("the current db is: [", this.currentDatabase, "]");
+    console.log("Mod Type: [", this.modificationType, "]");
 
+    if(this.modificationType == "Update"){
+      this.Update();
+    }else{
+      console.log("WRONG AGAIN");
+    }
     
+  }
+
+  generateForm(){
+    this.loadTable=false;
+    this.loadFormUpdate=false;
+    this.loadForm=false;
+    this.insertMessage= false;
+    this.updateMessage= false;
+    console.log("Button Worked");
+    console.log("the current db is: [", this.currentDatabase, "]");
+    console.log("Mod Type: [", this.modificationType, "]");
+
+    if(this.modificationType == "Insert"){
+      this.Insert();
+    }else{
+      console.log("WRONG AGAIN");
+    }
+    
+  }
+
+  Update(){
+    this.updateMessage= true;
+    this.insertMessage= false;
+    console.log("Update msg value: ", this.updateMessage);
+    setTimeout(function(){
+      document.getElementById('scrollHere').scrollIntoView(true);
+    },200)
+
+    if(this.currentDatabase== 'Bars'){
+      console.log("load bars for update");
+      this.loadTable= true;
+      this.modificationService.getBars().subscribe(
+        data =>  {
+            this.bars = data;
+        })};
+  }
+
+  Insert(){
+    this.updateMessage= false;
+    setTimeout(function(){
+      document.getElementById('scrollHere').scrollIntoView(true);
+    },100)
+    this.insertMessage=true;
     if(this.currentDatabase == null || this.modificationType == null){
       console.log("the current whatever is null");
     }
 
-    else if(this.currentDatabase == "Bars" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Bars" && this.modificationType == "Insert"){
       this.generateBarsUpdate();
     }
 
-    else if(this.currentDatabase == "Bartenders" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Bartenders" && this.modificationType == "Insert"){
       this.generateBartendersUpdate();
     }
 
-    else if(this.currentDatabase == "Customers" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Customers" && this.modificationType == "Insert"){
       this.generateCustomersUpdate();
     }
 
-    else if(this.currentDatabase == "Item" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Item" && this.modificationType == "Insert"){
       this.generateItemUpdate();
     }
 
-    else if(this.currentDatabase == "Frequents" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Frequents" && this.modificationType == "Insert"){
       this.generateFrequentsUpdate();
     }
 
-    else if(this.currentDatabase == "Frequents" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Frequents" && this.modificationType == "Insert"){
       this.generateFrequentsUpdate();
     }
 
-    else if(this.currentDatabase == "ItemsById" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "ItemsById" && this.modificationType == "Insert"){
       this.generateItemsByIdUpdate();
     }
 
-    else if(this.currentDatabase == "Likes" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Likes" && this.modificationType == "Insert"){
       this.generateLikesUpdate();
     }
 
-    else if(this.currentDatabase == "MasterSells" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "MasterSells" && this.modificationType == "Insert"){
       this.generateMasterSellsUpdate();
     }
 
-    else if(this.currentDatabase == "OpenHours" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "OpenHours" && this.modificationType == "Insert"){
       this.generateOpenHoursUpdate();
     }
     
-    else if(this.currentDatabase == "ShiftHours" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "ShiftHours" && this.modificationType == "Insert"){
       this.generateShiftHoursUpdate();
     }
 
-    else if(this.currentDatabase == "Stores" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Stores" && this.modificationType == "Insert"){
       this.generateStoresUpdate();
     }
-    else if(this.currentDatabase == "Transactions" && this.modificationType == "Update"){
+    else if(this.currentDatabase == "Transactions" && this.modificationType == "Insert"){
       this.generateTransactionsUpdate();
     }else{
       console.log("WRONG ");
@@ -289,6 +361,11 @@ export class ModificationComponent implements OnInit {
 
   clearData(){
     this.loadForm=false;
+    this.loadFormUpdate=false;
+    this.insertMessage= false;
+    this.updateMessage= false;
+    this.loadPopUp=true;
+    this.loadTable=false;
   }
 
   enterData(){
