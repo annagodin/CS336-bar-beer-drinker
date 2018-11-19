@@ -231,7 +231,7 @@ def get_top_bars_per_manf(manf):
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/top-bars-beer/<beer>', methods=['GET'])
+@app.route('/api/top-bars/<beer>', methods=['GET'])
 def get_top_bars_per_beer(beer):
     try:
         if beer is None:
@@ -391,21 +391,21 @@ def get_top_cities_per_manf_likes(manf):
 # VERIFICATION QUERIES
 #--------------------------------------------------------------------------------
 
-@app.route('/api/verify-transactions/', methods=['GET'])
+@app.route('/api/verification/transactions', methods=['GET'])
 def verify_transaction_hours():
     try:
         return jsonify(database.verify_transaction_hours())
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/verify-residency/', methods=['GET'])
+@app.route('/api/verification/residency', methods=['GET'])
 def verify_customer_residency():
     try:
         return jsonify(database.verify_customer_residency())
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/verify-beer-price/', methods=['GET'])
+@app.route('/api/verification/price', methods=['GET'])
 def verify_beer_prices():
     try:
         return jsonify(database.verify_beer_prices())
@@ -413,14 +413,14 @@ def verify_beer_prices():
         return make_response(str(e), 500)
 
 
-@app.route('/api/verify-inventory/', methods=['GET'])
+@app.route('/api/verification/inventory', methods=['GET'])
 def verify_inventory():
     try:
         return jsonify(database.verify_inventory())
     except Exception as e:
         return make_response(str(e), 500)
 
-@app.route('/api/verify-bartender/', methods=['GET'])
+@app.route('/api/verification/shifts', methods=['GET'])
 def verify_bartender_shifts():
     try:
         return jsonify(database.verify_bartender_shifts())

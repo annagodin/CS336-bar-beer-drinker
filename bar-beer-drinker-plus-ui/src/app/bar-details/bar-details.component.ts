@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BarsService, Bar, BarMenuItem } from '../bars.service';
+import { BarsService, Bar, BarMenuItem} from '../bars.service';
 import { HttpResponse } from '@angular/common/http';
 import { SelectItem } from 'primeng/components/common/selectitem';
 
@@ -21,6 +21,10 @@ export class BarDetailsComponent implements OnInit {
   selectText: boolean;
   
   daysOfTheWeek: SelectItem [];
+  manfsForDrop: SelectItem[];
+  dataAnalytics: boolean;
+  manufacturerOptions: SelectItem[];
+
 
   // private static $inject = ['$scope', '$location', '$anchorScroll'];
 
@@ -29,6 +33,7 @@ export class BarDetailsComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
     this.selectText= false;
+    this.dataAnalytics= false;
     console.log("Select text is:", this.selectText);
     route.paramMap.subscribe((paramMap) => {
       this.barName = paramMap.get('bar');
@@ -41,46 +46,8 @@ export class BarDetailsComponent implements OnInit {
             alert('could not retrieve a list of bars');
         }
       );
-
-      // barService.getBar(this.barName).subscribe(
-      //   data => {
-      //     this.barDetails = data;
-      //   },
-      //   (error: HttpResponse<any>) => {
-      //     if (error.status === 404) {
-      //       alert('Bar not found');
-      //     } else {
-      //       console.error(error.status + ' - ' + error.body);
-      //       alert('An error occurred on the server. Please check the browser console.');
-      //     }
-      //   });
-
-      // barService.getMenu(this.barName).subscribe(
-      //   data => {
-      //      this.menu = data;
-      //   }
-      // );
     });
 
-   
-  }
-
-  ngOnInit() {
-  }
-
-  setBarSelected(bar : string){
-    this.barName= bar;
-    this.loadAllGraphs();
-  }
-
-  loadAllGraphs(){
-    this.selectText= true;
-
-    setTimeout(function(){
-      document.getElementById('scrollHere').scrollIntoView(true);
-    },300)
-    
-    console.log("inside load all graphs for bar: ", this.barName);
     this.daysOfTheWeek = [
       {
         'label': 'Sunday',
@@ -111,6 +78,69 @@ export class BarDetailsComponent implements OnInit {
         'value': 'Saturday'
       }
     ];
+  }
+
+  ngOnInit() {
+  }
+
+  showDataAnalytics(){
+    console.log("IN LOAD BAR ANALYTICS");
+    this.dataAnalytics= true;
+
+    setTimeout(function(){
+      document.getElementById('Analytics').scrollIntoView(true);
+    },300)
+
+    this.barService.getBeerManufacturers().subscribe(
+      data => {
+        this.manufacturerOptions = data.map(manf => {
+          return {
+            label: manf,
+            value: manf,
+          };
+        })});
+
+  }
+
+  setPopulateForBrandAnalytics(brand: string){
+    console.log("populate for brandL ", brand);
+    this.barService.getTopBarsPerBrand(brand).subscribe(
+      data => {
+        console.log("Data is for brand stuff: ", data);
+        const customer = [];
+        const counts = [];
+    
+        data.forEach(bar => {
+          customer.push(bar.Bar);
+          counts.push(bar.NumBought);
+        });
+        this.renderChartBrandAnalytics(customer, counts, brand);
+      });
+
+      setTimeout(function(){
+        document.getElementById('GraphAnalytics').scrollIntoView(true);
+      },300)
+
+  }
+
+  setPopulateDataForAnalyticsDay(brand: string){
+
+  }
+
+  setBarSelected(bar : string){
+    this.barName= bar;
+    this.loadAllGraphs();
+  }
+
+  loadAllGraphs(){
+    this.selectText= true;
+
+    setTimeout(function(){
+      document.getElementById('scrollHere').scrollIntoView(true);
+    },300)
+    
+    console.log("inside load all graphs for bar: ", this.barName);
+    
 
     this.barService.getTopSpendersPerBar(this.barName).subscribe(
       data => {
@@ -179,6 +209,49 @@ export class BarDetailsComponent implements OnInit {
         });
   
  }
+ 
+ renderChartBrandAnalytics(bars: string[], counts: number[], event: any) {
+  Highcharts.chart('TopPerBrand', {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Top bars that sell the brand: '+ event + '.'
+    },
+    xAxis: {
+      categories: bars,
+      title: {
+        text: 'Bars'
+      }
+    },
+    yAxis: {
+      allowDecimals: true,
+      min: 0,
+      title: {
+        text: 'Amount Sold'
+      },
+      labels: {
+        overflow: 'justify'
+      }
+    },
+    plotOptions: {
+      bar: {
+        dataLabels: {
+          enabled: true
+        }
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      data: counts
+    }]
+  });
+}
  
  renderChartDistributionTime(bars: string[], counts: number[], event: any) {
   Highcharts.chart('distributionTime', {
@@ -315,7 +388,7 @@ export class BarDetailsComponent implements OnInit {
       type: 'column'
     },
     title: {
-      text: 'Top Brands sold on '+ event + '.'
+      text: 'Top Brands sold on '+ event + ' for bar: '+ this.barName+ '.'
     },
     xAxis: {
       categories: bars,

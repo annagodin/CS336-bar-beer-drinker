@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import { TabViewModule } from 'primeng/components/tabview/tabview';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +31,7 @@ import { ModificationComponent } from './modification/modification.component';
 import { BartenderSalesComponent } from './bartender-sales/bartender-sales.component';
 import { BartenderAnalyticsComponent } from './bartender-analytics/bartender-analytics.component';
 import { BartenderRankingComponent } from './bartender-ranking/bartender-ranking.component';
+import { VerificationComponent } from './verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,8 @@ import { BartenderRankingComponent } from './bartender-ranking/bartender-ranking
     ModificationComponent,
     BartenderSalesComponent,
     BartenderAnalyticsComponent,
-    BartenderRankingComponent
+    BartenderRankingComponent,
+    VerificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,8 @@ import { BartenderRankingComponent } from './bartender-ranking/bartender-ranking
     FormsModule,
     TableModule,
     AppRoutingModule,
+    TabViewModule,
+    ButtonModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
