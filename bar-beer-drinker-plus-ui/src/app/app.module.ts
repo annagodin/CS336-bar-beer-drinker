@@ -6,6 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import { TabViewModule } from 'primeng/components/tabview/tabview';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,7 +55,7 @@ import { VerificationComponent } from './verification/verification.component';
     BartenderSalesComponent,
     BartenderAnalyticsComponent,
     BartenderRankingComponent,
-    VerificationComponent
+    VerificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,8 @@ import { VerificationComponent } from './verification/verification.component';
     FormsModule,
     TableModule,
     AppRoutingModule,
+    TabViewModule,
+    ButtonModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

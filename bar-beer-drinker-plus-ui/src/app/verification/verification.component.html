@@ -1,34 +1,71 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">{{drinkerName}}</h1>
-    <p class="lead">Transactions ordered by time and grouped by bar.</p>
-    <p class="lead">Scroll Down For Drinker Data Analytics</p>
+    <h1 class="display-4">Verification Queries</h1>
+    <!-- <p class="lead">Transactions ordered by time and grouped by bar.</p> -->
+    </div>
+    </div>
 
-  </div>
-</div>
-
-<div class="container">
-  <p-table [value]="transactions" [paginator]="true" [rows]="10">
-    <ng-template pTemplate="header">
-        <tr>
-          <th>Query Pattern</th>
-          <th>Bar</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-transactions>
-        <tr>
-            <td>
-                <a routerLink="/drinker/{{ transactions.Customer }}/{{transactions.ID}}">
-                  {{ transactions.ID }}
-                </a>
-              </td>
-          <td>{{ transactions.Bar }}</td>
-          <td>{{ transactions.Date }}</td>
-          <td>{{ transactions.Day }}</td>
-          <td>{{ transactions.Time }}</td>
-          <td>{{ transactions.Tip }}%</td>
-          <td>{{ transactions.TotalCost | currency}}</td>
-        </tr>
-    </ng-template>
-  </p-table>
-</div>
+    <p-tabView>
+      <p-tabPanel header="Pattern 1" >
+          Verify transactions/bills cannot be issued  at times when the given bar is closed: <br>
+          <br>
+          Select NOT EXISTS(select * from Transactions t, OpenHours o  where o.Bar=t.bar and o.day=t.day and STR_TO_DATE(t.time, '%h%p') not between (STR_TO_DATE(o.open,'%h%p')) and STR_TO_DATE(o.close, '%h%p')) 
+          as Transaction_Hours_Verification; <br> <br>
+          <p-button label="Verify" (onClick)="handle1($event)" id ={1}> </p-button>
+          <div *ngIf="hand1">True</div>
+      </p-tabPanel>
+      <p-tabPanel header="Pattern 2" >
+        Verify drinkers cannot frequent bars in different city than they live: <br>
+        <br>
+        Select NOT EXISTS (Select distinct f.Name, b.Bar from Frequents f, Customers c, Bars b where f.Name = c.name
+        and f.bar = b.bar and c.city <> b.city) as Verify_Customer_Residency; <br><br>
+        <p-button label="Verify" (onClick)="handle2($event)" id ={2}> </p-button>
+        <div *ngIf="hand2">True</div>
+      </p-tabPanel>
+      <p-tabPanel header="Pattern 3" >
+        Verify for every two beers, b1 and b2, different bars may charge differently for b1 and b2 but b1 should either be less
+        expensive than b2 in ALL bars or more expensive than b2 in ALL bars: <br>
+        <br>
+        select not exists(select b1.Name, b2.Name from MasterSells b1, MasterSells b2, MasterSells b3, MasterSells b4
+            where b1.Type = "Beer" 
+            and b1.type = b2.type 
+            and b2.type = b3.type 
+            and b3.type = b4.type 
+            and (b1.price > b2.price and b1.bar = b2.bar) 
+            and (b2.price > b1.price and b3.bar = b4.bar) 
+            and b1.bar <> b3.bar) 
+            as Verify_Beer_Price_Constraint; 
+            <br><br>
+        <p-button label="Verify" (onClick)="handle3($event)" id ={3}> </p-button>
+        <div *ngIf="hand3">True</div>
+      </p-tabPanel>
+      <p-tabPanel header="Pattern 4" >
+        Verify a bar cannot sell more beers of specific brand, than it has in its inventory: <br>
+        <br>
+        select not exists ( 
+            select i.Name, s.Amount, count(*) as beerCount from Transactions t, ItemsByID i, Stores s 
+            where t.ID = i.ID 
+            and t.day = s.day 
+            and i.Name = s.Beer 
+            and t.Bar = s.Bar 
+            and i.Type = "Beer" 
+            group by i.Name, s.Amount 
+            having beerCount > s.Amount 
+            ) as Verify_Inventory_Constraint;
+            <br><br>
+        <p-button label="Verify" (onClick)="handle4($event)" id ={4}> </p-button>
+        <div *ngIf="hand4">True</div>
+    </p-tabPanel>
+    <p-tabPanel header="Pattern 5" >
+      Verify a bartender cannot work more than one shift a day: <br>
+      <br>
+      select not exists(select b1.Bartender
+            from Bartenders b1
+            group by b1.Bartender, b1.Day 
+            having count(b1.Day) > 1)
+            as Verify_Bartender_Shift_Constraint;
+            <br><br>
+        <p-button label="Verify" (onClick)="handle5($event)" id ={5}> </p-button>
+        <div *ngIf="hand5">True</div>
+  </p-tabPanel>
+  </p-tabView>
