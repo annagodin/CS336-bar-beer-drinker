@@ -27,7 +27,7 @@ const routes: Routes = [
   {
     path: 'static',
     pathMatch: 'full',
-    redirectTo: 'bars'
+    redirectTo: 'welcome'
   },  
   {
     path: '',
