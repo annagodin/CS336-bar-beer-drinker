@@ -23,6 +23,8 @@ export class BarDetailsComponent implements OnInit {
   daysOfTheWeek: SelectItem [];
   manfsForDrop: SelectItem[];
   dataAnalytics: boolean;
+  manufacturerOptions: SelectItem[];
+
 
   // private static $inject = ['$scope', '$location', '$anchorScroll'];
 
@@ -45,38 +47,7 @@ export class BarDetailsComponent implements OnInit {
         }
       );
     });
-  }
 
-  ngOnInit() {
-  }
-
-  showDataAnalytics(){
-    console.log("IN LOAD BAR ANALYTICS");
-    this.dataAnalytics= true;
-
-    setTimeout(function(){
-      document.getElementById('data').scrollIntoView(true);
-    },300)
-
-  }
-
-  setPopulateForBrandAnalytics(brand: string){
-
-  }
-
-  setBarSelected(bar : string){
-    this.barName= bar;
-    this.loadAllGraphs();
-  }
-
-  loadAllGraphs(){
-    this.selectText= true;
-
-    setTimeout(function(){
-      document.getElementById('scrollHere').scrollIntoView(true);
-    },300)
-    
-    console.log("inside load all graphs for bar: ", this.barName);
     this.daysOfTheWeek = [
       {
         'label': 'Sunday',
@@ -107,6 +78,69 @@ export class BarDetailsComponent implements OnInit {
         'value': 'Saturday'
       }
     ];
+  }
+
+  ngOnInit() {
+  }
+
+  showDataAnalytics(){
+    console.log("IN LOAD BAR ANALYTICS");
+    this.dataAnalytics= true;
+
+    setTimeout(function(){
+      document.getElementById('Analytics').scrollIntoView(true);
+    },300)
+
+    this.barService.getBeerManufacturers().subscribe(
+      data => {
+        this.manufacturerOptions = data.map(manf => {
+          return {
+            label: manf,
+            value: manf,
+          };
+        })});
+
+  }
+
+  setPopulateForBrandAnalytics(brand: string){
+    console.log("populate for brandL ", brand);
+    this.barService.getTopBarsPerBrand(brand).subscribe(
+      data => {
+        console.log("Data is for brand stuff: ", data);
+        const customer = [];
+        const counts = [];
+    
+        data.forEach(bar => {
+          customer.push(bar.Bar);
+          counts.push(bar.NumBought);
+        });
+        this.renderChartBrandAnalytics(customer, counts, brand);
+      });
+
+      setTimeout(function(){
+        document.getElementById('GraphAnalytics').scrollIntoView(true);
+      },300)
+
+  }
+
+  setPopulateDataForAnalyticsDay(brand: string){
+
+  }
+
+  setBarSelected(bar : string){
+    this.barName= bar;
+    this.loadAllGraphs();
+  }
+
+  loadAllGraphs(){
+    this.selectText= true;
+
+    setTimeout(function(){
+      document.getElementById('scrollHere').scrollIntoView(true);
+    },300)
+    
+    console.log("inside load all graphs for bar: ", this.barName);
+    
 
     this.barService.getTopSpendersPerBar(this.barName).subscribe(
       data => {
@@ -175,6 +209,49 @@ export class BarDetailsComponent implements OnInit {
         });
   
  }
+ 
+ renderChartBrandAnalytics(bars: string[], counts: number[], event: any) {
+  Highcharts.chart('TopPerBrand', {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Top bars that sell the brand: '+ event + '.'
+    },
+    xAxis: {
+      categories: bars,
+      title: {
+        text: 'Bars'
+      }
+    },
+    yAxis: {
+      allowDecimals: true,
+      min: 0,
+      title: {
+        text: 'Amount Sold'
+      },
+      labels: {
+        overflow: 'justify'
+      }
+    },
+    plotOptions: {
+      bar: {
+        dataLabels: {
+          enabled: true
+        }
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    credits: {
+      enabled: false
+    },
+    series: [{
+      data: counts
+    }]
+  });
+}
  
  renderChartDistributionTime(bars: string[], counts: number[], event: any) {
   Highcharts.chart('distributionTime', {

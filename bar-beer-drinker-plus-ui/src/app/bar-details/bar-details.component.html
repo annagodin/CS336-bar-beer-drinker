@@ -44,19 +44,45 @@
       </div>
 
 <br>
+<br>
+<br>
 
 <!--- PER DATA ANALYTICS-->
 <div *ngIf="dataAnalytics">
-<p class="text-monospace">Select Beer Brand</p>
-<p-dropdown class="float-right text-center" *ngIf="manufacturer" [options]="manufacturer" (onChange)="setPopulateForBrandAnalytics($event.value)" ></p-dropdown>
+<div id = "Analytics">
+<p class="text-monospace">Select Beer Brand To See Which Bar Sells It The Most</p>
+<div class="row justify-content-center" >
+        <div class="col justify-content-center">
+                <br>
+                <p-dropdown *ngIf="manufacturerOptions" [ngClass]="{ 'no-option-selected': selectedManufacturer === undefined || selectedManufacturer === null }"
+                placeholder="Choose Beer Brand" [options]="manufacturerOptions" [(ngModel)]="selectedManufacturer" showClear="true"
+                (onChange)="setPopulateForBrandAnalytics($event.value)"></p-dropdown>     
+                <br>
+        </div>
+        
+</div> 
+</div>
+</div>
+
+<br>
+<br>
+<div id = "GraphAnalytics">
+<div id="TopPerBrand"></div>   
 </div>
 
 
+
+<br>
+<br>
+
+
+
 <!-- PER BAR-->
+<div *ngIf="selectText">
 <div class="container">
 <div class="row justify-content-center" >
 <div id = "scrollHere">
-<p class="text-monospace" *ngIf="selectText">Select day of the week to load which beers were most sold on that day</p>
+<p class="text-monospace">Select day of the week to load which beers were most sold on that day</p>
 </div>
 </div>
 </div>
@@ -65,7 +91,7 @@
 <div class="container">
 <div class="row justify-content-center" >
     <div>
-          <p-dropdown class="float-right text-center" *ngIf="daysOfTheWeek" [options]="daysOfTheWeek" (onChange)="setPopulateForDay($event.value)" ></p-dropdown>
+          <p-dropdown class="float-right text-center" [options]="daysOfTheWeek" (onChange)="setPopulateForDay($event.value)" ></p-dropdown>
     </div>
 </div>
 </div>
@@ -97,5 +123,6 @@
                     <div id="distributionTime"></div>
             </div>
     </div>
+</div>
 </div>
 

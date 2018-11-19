@@ -68,4 +68,18 @@ export class BarsService {
     return this.http.get<any[]>('/api/busiest-days/' + bar);
   }
 
+  getBeerManufacturers(beer?: string): any {
+    if (beer) {
+      return this.http.get<string>(`/api/beer-manufacturer/${beer}`);
+    }
+    return this.http.get<string[]>('/api/beer-manufacturer');
+  }
+
+  getTopBarsPerBrand(manf : string) {
+    return this.http.get<any[]>('/api/top-bars-manf/' + manf);
+  }
+  
+
+ 
+
 }

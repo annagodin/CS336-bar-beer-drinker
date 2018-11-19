@@ -49,7 +49,7 @@ export class BeersComponent implements OnInit {
 
   onBeerGraph(event: any){
     console.log("It has been clicked: [", event, "]");
-    
+
     this.beerService.getTopSellingBars(event).subscribe(
       data => {
         console.log("Data for top selling: ", data);
@@ -84,14 +84,19 @@ export class BeersComponent implements OnInit {
 
         data.forEach(bar => {
           hour.push(bar.Hour);
+          console.log("what: ", bar.Hour);
           counts.push(bar.NumBought);
         });
         this.renderChartSaleDistribution(hour, counts, event);
       }
     );
+    setTimeout(function(){
+      document.getElementById('scrollHere').scrollIntoView(true);
+    },400)
   }
 
   renderChartSaleDistribution(bars: string[], counts: number[], event: any){
+    console.log("Chart");
     Highcharts.chart('testing', {
       chart: {
         type: 'column'
