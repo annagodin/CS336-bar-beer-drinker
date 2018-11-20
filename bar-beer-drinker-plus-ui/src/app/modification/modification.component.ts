@@ -17,25 +17,16 @@ export class ModificationComponent implements OnInit {
   colInfoUpdate: string[];
   formData: object;
   loadForm: boolean;
-  insertMessage: boolean;
-  updateMessage: boolean;
-  loadPopUp: boolean;
   loadTable: boolean;
-  loadFormUpdate: boolean;
   bars: Bar[];
   tableTest: object;
 
 
   constructor(public modificationService: ModificationService) {
     this.loadForm= false;
-    this.insertMessage= false;
-    this.updateMessage= false;
-    this.loadFormUpdate=false;
+    this.loadTable=false;
     this.formData= {};
     this.tableTest= {};
-    this.loadPopUp=true;
-    this.loadTable=false;
-    console.log("form value: ", this.loadForm);
     this.databaseOptions = [
       {
         'label': 'Bars',
@@ -106,65 +97,60 @@ export class ModificationComponent implements OnInit {
   }
 
   tableData(bar: any){
+    //THIS ONLY WORKS FOR BAR RN BC THATS THE ONLY DATA I DID
     console.log("this is what table data returns: ", bar);
- 
-  var arr:string[]; 
+    var arr:string[]; 
     arr = [bar.Bar, bar.City, bar.License, bar.Phone];
-
     this.colInfoUpdate = arr;
-    this.loadFormUpdate=true;
+    if(this.modificationType == "Update"){
+      this.loadForm=true;
+    }else{ //else it is a delete
+      //create some pop up to ask if they are sure they want to delete 
+    }
+   
   }
 
   ngOnInit() {
   }
 
-  generateFormUpdate(){
-    this.loadTable=false;
+  generateModification(){
     this.loadForm=false;
-    this.loadFormUpdate=true;
-    this.insertMessage= false;
-    this.updateMessage= false;
+    this.loadTable=false;
     console.log("Button Worked");
     console.log("the current db is: [", this.currentDatabase, "]");
     console.log("Mod Type: [", this.modificationType, "]");
 
     if(this.modificationType == "Update"){
       this.Update();
+      this.loadTable=true;
+    }else if (this.modificationType == "Insert"){
+      this.Insert();
+      this.loadForm=true;
+    }else if(this.modificationType == "Delete"){
+        this.Delete();
+        this.loadTable=true;
     }else{
-      console.log("WRONG AGAIN");
+      //FIXME some how throw an error
     }
     
   }
 
-  generateForm(){
-    this.loadTable=false;
-    this.loadFormUpdate=false;
-    this.loadForm=false;
-    this.insertMessage= false;
-    this.updateMessage= false;
-    console.log("Button Worked");
-    console.log("the current db is: [", this.currentDatabase, "]");
-    console.log("Mod Type: [", this.modificationType, "]");
-
-    if(this.modificationType == "Insert"){
-      this.Insert();
-    }else{
-      console.log("WRONG AGAIN");
-    }
-    
+  Delete(){
+    if(this.currentDatabase== 'Bars'){
+      console.log("load bars for delete");
+      this.modificationService.getBars().subscribe(
+        data =>  {
+            this.bars = data;
+        })};
   }
 
   Update(){
-    this.updateMessage= true;
-    this.insertMessage= false;
-    console.log("Update msg value: ", this.updateMessage);
     setTimeout(function(){
       document.getElementById('scrollHere').scrollIntoView(true);
     },200)
 
     if(this.currentDatabase== 'Bars'){
       console.log("load bars for update");
-      this.loadTable= true;
       this.modificationService.getBars().subscribe(
         data =>  {
             this.bars = data;
@@ -172,16 +158,11 @@ export class ModificationComponent implements OnInit {
   }
 
   Insert(){
-    this.updateMessage= false;
     setTimeout(function(){
       document.getElementById('scrollHere').scrollIntoView(true);
     },100)
-    this.insertMessage=true;
-    if(this.currentDatabase == null || this.modificationType == null){
-      console.log("the current whatever is null");
-    }
-
-    else if(this.currentDatabase == "Bars" && this.modificationType == "Insert"){
+    
+    if(this.currentDatabase == "Bars" && this.modificationType == "Insert"){
       this.generateBarsUpdate();
     }
 
@@ -236,13 +217,11 @@ export class ModificationComponent implements OnInit {
   }
 
  /**
-  *  UPDATE FORMS
+  *  Insert FORMS
   */
 
    generateBarsUpdate(){
     this.colInfoUpdate= this.modificationService.getBarCols();
-    console.log(this.colInfoUpdate);
-    this.loadForm= true;
 
     setTimeout(function(){
       document.getElementById('scrollHere').scrollIntoView(true);
@@ -250,7 +229,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateBartendersUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getBartendersCols();
 
     setTimeout(function(){
@@ -259,7 +237,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateCustomersUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getCustomersCols();
 
     setTimeout(function(){
@@ -268,7 +245,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateItemUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getItemCols();
 
     setTimeout(function(){
@@ -277,7 +253,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateFrequentsUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getFrequentsCols();
 
     setTimeout(function(){
@@ -286,7 +261,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateItemsByIdUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getItemsByIdCols();
 
     setTimeout(function(){
@@ -295,7 +269,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateLikesUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getLikesCols();
 
     setTimeout(function(){
@@ -304,7 +277,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateMasterSellsUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getMasterSellsCols();
 
     setTimeout(function(){
@@ -313,7 +285,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateOpenHoursUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getOpenHoursCols();
 
     setTimeout(function(){
@@ -322,7 +293,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateShiftHoursUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getShiftHoursCols();
 
     setTimeout(function(){
@@ -331,7 +301,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateStoresUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getStoresCols();
 
     setTimeout(function(){
@@ -340,7 +309,6 @@ export class ModificationComponent implements OnInit {
   }
 
   generateTransactionsUpdate(){
-    this.loadForm= true;
     this.colInfoUpdate= this.modificationService.getTransactionsCols();
 
     setTimeout(function(){
@@ -360,12 +328,9 @@ export class ModificationComponent implements OnInit {
   }
 
   clearData(){
-    this.loadForm=false;
-    this.loadFormUpdate=false;
-    this.insertMessage= false;
-    this.updateMessage= false;
-    this.loadPopUp=true;
-    this.loadTable=false;
+   //SET EVERYTHING TO FALSE
+   this.loadForm=false;
+   this.loadTable=false;
   }
 
   enterData(){
